@@ -1,15 +1,24 @@
 import sys
 thismodule = sys.modules[__name__]
 
+import json
+import tutum
+import requests
+from bunch import Bunch
+
+class A(object):
+	pass
+
 def func(self):
 	import time
-	import json, tutum, requests
 	from firebase import firebase
-	
+
+	a = A()
+
 	start = int(round(time.time() * 1000))
 	def logms(step):
 		end = int(round(time.time() * 1000))
-		#self.info(self.rid, "firebase_get_data: %s (%s)" % (str(end-start), str(step)))
+		self.info(self.rid, "firebase_get_data_external: %s (%s)" % (str(end-start), str(step)))
 	logms(1)
 	
 	authentication = firebase.FirebaseAuthentication(self.settings.FIREBASE_SECRET, 'philip@sahli.net', extra={'id': 'philipsahli'})
@@ -24,8 +33,7 @@ def func(self):
 	debug = self.debug
 	info = self.info
 	rid = self.rid
-	
-	
+
 	lcache = {}
 	
 	class TutumService(object):
@@ -46,7 +54,7 @@ def func(self):
 							
 							new_linked.append({
 								'name': link['name'],
-								'to_application': json.loads(text)['name']
+								'to_application': json.loads(text)['unique_name']
 							})
 							link_names.append(json.loads(text)['name'])
 				app['linked'] = new_linked
@@ -72,14 +80,22 @@ def func(self):
 			tutum.apikey = self.settings.TUTUM_APIKEY
 
 			ids = []
-			if name:
-				apps = tutum.Cluster.list(name=name)
-			else:
-				apps = tutum.Cluster.list()
+
+			#apps = tutum.Cluster.list()
+			status_code, apps = self._call("/api/v1/application/", "GET")
+			#info(rid, status_code)
+			apps = Bunch(json.loads(apps))
 			if apps:
-				for app in apps:
+				#info(rid, len(apps))
+				#info(rid, apps)
+				for app in apps.objects:
+
+					app = Bunch(app)
 					if app.state == "Terminated": continue
-					details = tutum.Cluster.fetch(app.uuid)
+
+					status_code, details_api = self._call("/api/v1/application/"+app.uuid+"/", "GET")
+					details = Bunch(json.loads(details_api))
+
 					all_env_vars, custom_env_vars = self._custom_variables(details.container_envvars)
 					app_dict = {'name': app.name, 
 								'id': app.uuid,
@@ -95,7 +111,7 @@ def func(self):
 								
 								# debug
 								'details': details.__dict__,
-								'full': app.__dict__
+								#'full': app.__dict__
 								}
 
 						
@@ -104,23 +120,23 @@ def func(self):
 					app_dict['env_vars'] = json.loads(text)['container_envvars']
 					
 					conts = []
-					containers = tutum.Container.list(application__name=app.name)
+					status_code, containers = self._call("/api/v1/application/"+app.uuid+"/", "GET", get_cached=True)
+					containers = Bunch(json.loads(containers))
 
-					for container in containers:
-						ports = []
-						image_name = container.image_name
-						container_size = container.container_size
-						for port in container.container_ports:
-							ports.append({'inner': port['inner_port'], 'outer': port['outer_port']})
-						conts.append({'name': container.name, 'id': container.uuid, 
-									  'size': container.container_size,
-									  'dns': container.public_dns,
-									  'ports': ports,
-									  #'env': container.container_envvars 
-									  })
+					#for container in containers:
+						#info(rid, container)
+						#container = Bunch(json.loads(container))
+						#ports = []
+						#for port in container.container_ports:
+						#	ports.append({'inner': port['inner_port'], 'outer': port['outer_port']})
+						#conts.append({'name': container.name, 
+						#				'id': container.uuid, 
+						#			  'dns': container.public_dns,
+						#			  'ports': ports,
+						#			  })
 					app_dict.update({'containers': conts})
-					app_dict.update({'image': image_name})
-					app_dict.update({'size': container_size})
+					app_dict.update({'image': containers.image_name})
+					#app_dict.update({'size': container_size})
 					ids.append(app_dict)
 				# change linked.to_application to app name
 				ids = self._custom_link_data(ids)
@@ -128,14 +144,12 @@ def func(self):
 			return ids
 		
 		def _call(self, uri, method, data=None, get_cached=False):
-			#import pdb; pdb.set_trace()	
 			if method == "GET" and get_cached:
-				debug(rid, "get from cache")
+				#debug(rid, "get from cache")
 				cached = lcache.get(uri, None)
 				if cached is not None:
 					debug(rid, "found in cached")
 					return cached[0], cached[1]
-			#debug(rid, lcache)
 			
 			start = int(round(time.time() * 1000))
 			base_url = "https://app.tutum.co"
@@ -153,7 +167,7 @@ def func(self):
 				r = requests.delete(base_url+uri, headers=headers)
 				
 			end = int(round(time.time() * 1000))
-			debug(rid, (str(end-start), "_call", uri, method))
+			debug(rid, (str(end-start), "_call", uri, method, r.status_code))
 			if method == "GET" and get_cached:
 				if not cached:
 					#debug(rid, "put to cache")
@@ -195,22 +209,24 @@ def func(self):
 					"target_num_containers": 1,
 					"container_envvars": service.custom_env_vars,
 					"container_size": service.size,
-					"linked_to_application": service.linked
+					"linked_to_application": service.linked,
+					"roles": service.roles
 				}
-				info(rid, data)
+				#info(rid, data)
 				if service.web_public_dns and ".tutum.io" not in service.web_public_dns:
 					data.update({'web_public_dns': service.web_public_dns})
 				status, response = self._call("/api/v1/application/", "POST",
 											  data)
 				
+				if status != 201:
+					e = Exception(status, response)
+					raise e
+
 				# get new uid
 				service.uri = json.loads(response)['resource_uri']
 				service.id = json.loads(response)['uuid']
 				info(rid, "service created with uri %s" % service.uri)
 				
-				if status != 201:
-					e = Exception(status)
-					raise e
 					
 				uuid = json.loads(response)['uuid']
 				result = self._change_state(service, uuid, "start", "Running")
@@ -251,20 +267,16 @@ def func(self):
 			return Service(**service_dict)
 		
 		def get_services(self):
-			info(rid, (self.services_url, self.user))
 			service_dict = self.app.get(self.services_url % self.user, None)
-
-			info(rid, service_dict)
 
 			if not service_dict:
 				raise Exception("services not found on firebase")
 			return service_dict
 		
 		def save_service(self, service):
-			#result1 = self.app.put(self.services_url % (self.user), service.name, service.full)
-			full = self.app.put(self.services_url_new % (self.user, service.name), "data", service.full)
-			#self.app.put(self.services_url_new % (self.user, service.name), "data", { 'id': service.id })
-			return full
+			info(rid, service.data)
+			data = self.app.put(self.services_url_new % (self.user, service.name), "data", service.data)
+			return data
 			
 	
 	def get_tutum_service():
@@ -276,7 +288,7 @@ def func(self):
 			self.name = kwargs['data']['name']
 			self.state = kwargs['data']['state']
 			self.instance_count = 1
-			self.id = kwargs['data']['id']
+			self.id = kwargs['data'].get('id', None)
 			self.image = kwargs['data']['image']
 			self.env_vars = kwargs['data'].get('env_vars', [])
 			self.custom_env_vars = kwargs['data'].get('custom_env_vars', [])
@@ -286,35 +298,55 @@ def func(self):
 			self.size = kwargs['data'].get('size', "XS")
 			
 			# full
-			self.full = kwargs['data']
+			#self.full = kwargs['data']
 			
 			self.terminate = kwargs['terminate']
+			if kwargs.has_key('role_config'):
+				self.roles = ["global"]
+			else:
+				self.roles = []
 			
 			self.tutum_service = get_tutum_service()
-			
+
+		@property	
+		def data(self):
+			return {
+				'name': self.name,
+				'id': self.id,
+				'uri': self.uri,
+				'size': self.size,
+				'image': self.image,
+				'state': self.state,
+				'web_public_dns': self.web_public_dns,
+				'linked': self.linked,
+				#'details': self.details,
+				#'full': self.full,
+				'custom_env_vars': self.custom_env_vars,
+				'env_vars': self.env_vars,
+				#'instances': []
+			}
 		
 		def get_linked(self):
 			linked = []
 			for link in self.linked:
 				linked.append({
 					'name': link['name'],
-					'to_application': json.loads(self.tutum_service._call("/api/v1/application/?name="+link['to_application']))['name']
+					'to_application': json.loads(self.tutum_service._call("/api/v1/application/?name="+link['to_application']))['unique_name']
 				})
 			return linked
 		
 		def start(self):
 			r = self.tutum_service.start(self)
-			info(rid, "url after start: "+r[1].uri)
 			return r
-		
+			
 		def stop(self):
 			return self.tutum_service.stop(self)
 		
 		def clear_state(self, state="Terminated"):
 			self.id = None
 			self.state = state
-			self.full['state'] = state
-			self.full['instances'] = []
+			#self.full['state'] = state
+			#self.full['instances'] = []
 		
 		def terminate(self):
 			pass
@@ -344,19 +376,19 @@ def func(self):
 				raise Exception(result)
 			
 			service_new.state = "Running"
-			service_new.full['state'] = service_new.state
+			#service_new.full['state'] = service_new.state
 			service_new.id = service_new.id
 			info(rid, "id: "+service.id)
 			info(rid, "save service with id "+service.id+" and uri "+service.uri+" to firebase")
 			r = firebase.save_service(service_new)
-			info(rid, r)
+			#info(rid, r)
 			
 			result = service_new.id
 			
 		elif action == "stop":
 			result, service = service.stop()
-			service.full['state'] = service.state
-			service.full['instances'] = []
+			#service.full['state'] = service.state
+			#service.full['instances'] = []
 			service.id = None
 			result = service.state
 			firebase.save_service(service)
@@ -373,9 +405,9 @@ def func(self):
 		tutum_names = [ a['name'] for a in tutum_data ]
 		
 		services = firebase.get_services()
-		debug(rid, services.keys())
+		#debug(rid, services.keys())
 		for service in services:
-			debug(rid, service)
+			#debug(rid, service)
 			
 			if service not in tutum_names:
 				service_obj = firebase.get_service(service)
@@ -387,24 +419,23 @@ def func(self):
 		if tutum_data is not None:
 			for service_data in tutum_data:
 				if not service_data['state'] == "Terminated":
-					logms(9)
-					app.put('/users/%s/services/%s/' % (firebase_uid, 										service_data['name']), "data", 
+					logms("save "+service_data['name'])
+					app.put('/users/%s/services/%s/' % (firebase_uid, service_data['name']), "data", 
 							{'name': service_data['name'],
 							 'id': service_data['id'],
 							 'uri': service_data.get('uri', "uri2"),
-							 'size': service_data['size'],
+							 'size': service_data.get('size', "M"),
 							 'image': service_data['image'],
 							 'state': service_data['state'],
 							 'web_public_dns': service_data['web_public_dns'],
 							 'linked': service_data['linked'],
 							 'details': service_data['details'],
-							 'full': service_data['full'],
+							 #'full': service_data['full'],
 							 'custom_env_vars': service_data['custom_env_vars'],
 							 'env_vars': service_data['env_vars'],
 							 'instances': service_data['containers']})
-					logms(10)
+					logms("saved "+service_data['name'])
 		result = tutum_names#, services_name
 		
 	lcache = {}
 	return self.responses.JSONResponse(json.dumps(result))
-#			self.service_list.append(service)
