@@ -81,13 +81,9 @@ def func(self):
 
 			ids = []
 
-			#apps = tutum.Cluster.list()
 			status_code, apps = self._call("/api/v1/application/", "GET")
-			#info(rid, status_code)
 			apps = Bunch(json.loads(apps))
 			if apps:
-				#info(rid, len(apps))
-				#info(rid, apps)
 				for app in apps.objects:
 
 					app = Bunch(app)
@@ -97,6 +93,7 @@ def func(self):
 					details = Bunch(json.loads(details_api))
 
 					all_env_vars, custom_env_vars = self._custom_variables(details.container_envvars)
+					#info(rid, details.__dict__.keys())
 					app_dict = {'name': app.name, 
 								'id': app.uuid,
 								'uri': app.resource_uri,
@@ -111,20 +108,20 @@ def func(self):
 								
 								# debug
 								'details': details.__dict__,
-								#'full': app.__dict__
+								'full': app.__dict__
 								}
 
-						
+					#assert app_dict.has_key('details')
 					# workout to get vars without linked_vars from environment variables
 					status, text = self._call("/api/v1/application/"+app.uuid+"/", "GET", get_cached=True)
-					app_dict['env_vars'] = json.loads(text)['container_envvars']
 					
 					conts = []
 					status_code, containers = self._call("/api/v1/application/"+app.uuid+"/", "GET", get_cached=True)
 					containers = Bunch(json.loads(containers))
+					app_dict['env_vars'] = json.loads(text)['container_envvars']
+					container_size = containers['container_size']
 
 					#for container in containers:
-						#info(rid, container)
 						#container = Bunch(json.loads(container))
 						#ports = []
 						#for port in container.container_ports:
@@ -136,7 +133,7 @@ def func(self):
 						#			  })
 					app_dict.update({'containers': conts})
 					app_dict.update({'image': containers.image_name})
-					#app_dict.update({'size': container_size})
+					app_dict.update({'size': container_size})
 					ids.append(app_dict)
 				# change linked.to_application to app name
 				ids = self._custom_link_data(ids)
@@ -212,7 +209,6 @@ def func(self):
 					"linked_to_application": service.linked,
 					"roles": service.roles
 				}
-				#info(rid, data)
 				if service.web_public_dns and ".tutum.io" not in service.web_public_dns:
 					data.update({'web_public_dns': service.web_public_dns})
 				status, response = self._call("/api/v1/application/", "POST",
@@ -274,7 +270,6 @@ def func(self):
 			return service_dict
 		
 		def save_service(self, service):
-			info(rid, service.data)
 			data = self.app.put(self.services_url_new % (self.user, service.name), "data", service.data)
 			return data
 			
@@ -298,7 +293,10 @@ def func(self):
 			self.size = kwargs['data'].get('size', "XS")
 			
 			# full
-			#self.full = kwargs['data']
+			self.full = kwargs['data'].get('full', None)
+			#info(rid, kwargs.keys())
+			#info(rid, kwargs['data'].keys())
+			self.details = kwargs['data'].get('details', None)
 			
 			self.terminate = kwargs['terminate']
 			if kwargs.has_key('role_config'):
@@ -319,8 +317,8 @@ def func(self):
 				'state': self.state,
 				'web_public_dns': self.web_public_dns,
 				'linked': self.linked,
-				#'details': self.details,
-				#'full': self.full,
+				'details': self.details,
+				'full': self.full,
 				'custom_env_vars': self.custom_env_vars,
 				'env_vars': self.env_vars,
 				#'instances': []
@@ -345,8 +343,6 @@ def func(self):
 		def clear_state(self, state="Terminated"):
 			self.id = None
 			self.state = state
-			#self.full['state'] = state
-			#self.full['instances'] = []
 		
 		def terminate(self):
 			pass
@@ -376,10 +372,9 @@ def func(self):
 				raise Exception(result)
 			
 			service_new.state = "Running"
-			#service_new.full['state'] = service_new.state
 			service_new.id = service_new.id
-			info(rid, "id: "+service.id)
-			info(rid, "save service with id "+service.id+" and uri "+service.uri+" to firebase")
+			#info(rid, "id: "+service.id)
+			#info(rid, "save service with id "+service.id+" and uri "+service.uri+" to firebase")
 			r = firebase.save_service(service_new)
 			#info(rid, r)
 			
@@ -387,8 +382,6 @@ def func(self):
 			
 		elif action == "stop":
 			result, service = service.stop()
-			#service.full['state'] = service.state
-			#service.full['instances'] = []
 			service.id = None
 			result = service.state
 			firebase.save_service(service)
@@ -402,6 +395,8 @@ def func(self):
 		# get data from tutum
 
 		tutum_data = tutum_service.get_data(name=None)
+		#info(rid, "nowdata")
+		#info(rid, tutum_data)
 		tutum_names = [ a['name'] for a in tutum_data ]
 		
 		services = firebase.get_services()
@@ -420,6 +415,8 @@ def func(self):
 			for service_data in tutum_data:
 				if not service_data['state'] == "Terminated":
 					logms("save "+service_data['name'])
+					assert service_data.has_key('details')
+					#assert len(service_data['details']) == 2, Exception(str(service_data['details']))
 					app.put('/users/%s/services/%s/' % (firebase_uid, service_data['name']), "data", 
 							{'name': service_data['name'],
 							 'id': service_data['id'],
@@ -430,7 +427,7 @@ def func(self):
 							 'web_public_dns': service_data['web_public_dns'],
 							 'linked': service_data['linked'],
 							 'details': service_data['details'],
-							 #'full': service_data['full'],
+							 'full': service_data['full'],
 							 'custom_env_vars': service_data['custom_env_vars'],
 							 'env_vars': service_data['env_vars'],
 							 'instances': service_data['containers']})
