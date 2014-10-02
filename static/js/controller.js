@@ -42,7 +42,7 @@ myApp.config(['ngClipProvider', function(ngClipProvider) {
 myApp.factory('tutumService', ['$rootScope', '$http', '$q', function($rootScope, $http, $q) {
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     if (!angular.isUndefined($rootScope.user)) {
-        var url = '/fastapp/base/tutum/exec/firebase_get_data_external/?json=&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
+        var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
     } else {
         //throw "URL missing";
         console.log("URL missing");
@@ -59,7 +59,7 @@ myApp.factory('tutumService', ['$rootScope', '$http', '$q', function($rootScope,
             ];
         },
         'update': function(name) {
-            var url = '/fastapp/base/tutum/exec/firebase_get_data_external/?json=&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
+            var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
             url=url+"&name="+name;
             return $http(
             {
@@ -78,7 +78,7 @@ myApp.factory('tutumService', ['$rootScope', '$http', '$q', function($rootScope,
                 var service = services[key];
                 var name = service.data.name;
 
-                var url = '/fastapp/base/tutum/exec/firebase_get_data_external/?json=&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
+                var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
                 url=url+"&name="+name;
 
                 console.log("syncing");
@@ -100,7 +100,7 @@ myApp.factory('tutumService', ['$rootScope', '$http', '$q', function($rootScope,
         },
 
         'stop': function(service) {
-            var url = '/fastapp/base/tutum/exec/firebase_get_data_external/?json=&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
+            var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
             data = {
                 action: "stop",
                 service_name: service.data.name
@@ -110,7 +110,7 @@ myApp.factory('tutumService', ['$rootScope', '$http', '$q', function($rootScope,
         },
 
         'start': function(service) {
-            var url = '/fastapp/base/tutum/exec/firebase_get_data_external/?json=&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
+            var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
             data = {
                 action: "start",
                 service_name: service.data.name
