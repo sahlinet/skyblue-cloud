@@ -11,7 +11,7 @@
   <!-- site css -->
   <link rel="stylesheet" href="bower_components/Bootflat/css/site.min.css">
   <link rel="stylesheet" href="css/tutumui2.css">
-  <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js" type="text/javascript"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.6/angular-route.min.js" type="text/javascript"></script>
@@ -31,6 +31,10 @@
 
   <script type='text/javascript' src='js/services.js'></script>
   <script type='text/javascript' src='js/controller.js'></script>
+
+  <script type='text/javascript'>
+    window.firebase_url = "{{ FIREBASE }}";
+  </script>
 
   <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
@@ -104,9 +108,9 @@
         <div class="container">
           <div ng-show="showMainContent()">
             <div class="download">
-              <span class="download__infos">You simply have to <b>try it</b>.</span>&nbsp;&nbsp;&nbsp;&nbsp;
-              <a class="btn btn-primary" href="/login">Login</a>&nbsp;&nbsp;&nbsp;&nbsp;
-              <a class="btn" href="#/documentation">Read the Documentation</a>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="download__infos">You simply have to <b>try it</b>.</span>
+              <a class="btn btn-primary" href="/login">Login</a>
+              <a class="btn" href="#/documentation">Read the Documentation</a>
             </div>
             <hr class="dashed" />
             <div class="row">

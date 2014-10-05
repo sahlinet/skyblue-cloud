@@ -1,4 +1,4 @@
 app/*.pyc
-build/
-dist/
+#build/
+#dist/
 skyblue_cloud.egg-info/
