@@ -1,3 +1,4 @@
+{% verbatim %}
     <div>
         <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
         <div class="row" ng-repeat="service in services" >
@@ -100,3 +101,4 @@
                 </div>
         </div>
     </div>
+{% endverbatim %}

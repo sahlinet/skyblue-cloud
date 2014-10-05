@@ -122,7 +122,7 @@ myApp.factory('tutumService', ['$rootScope', '$http', '$q', function($rootScope,
 }]);
 
 myApp.factory('loginService', ['$rootScope', function($rootScope) {
-    var ref = new Firebase("https://tutumui-123.firebaseio.com");
+    var ref = new Firebase(window.firebase_url);
     return {
         'auth': new FirebaseSimpleLogin(ref, function(error, user) {
             if (user) {
@@ -195,8 +195,11 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
 
     $scope.alerts = [];
 
-    var projectsRef = new Firebase("https://skyblue-cloud-dev.firebaseio.com/users/"+$rootScope.user.uid+"/projects");
-    var servicesRef = new Firebase("https://skyblue-cloud-dev.firebaseio.com/users/"+$rootScope.user.uid+"/services");
+    //var projectsRef = new Firebase("https://skyblue-cloud-dev.firebaseio.com/users/"+$rootScope.user.uid+"/projects");
+    //var servicesRef = new Firebase("https://skyblue-cloud-dev.firebaseio.com/users/"+$rootScope.user.uid+"/services");
+
+    var projectsRef = new Firebase(window.firebase_url+"/users/"+$rootScope.user.uid+"/projects");
+    var servicesRef = new Firebase(window.firebase_url+"/users/"+$rootScope.user.uid+"/services");
 
     $scope.projects = $firebase(projectsRef);
     $scope.services = $firebase(servicesRef);
