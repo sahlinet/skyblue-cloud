@@ -199,12 +199,16 @@
 				"Git: Push Current Branch"
 			],
 			[
-				"finish",
-				"Git-flow: Hotfix Finish"
-			],
-			[
 				":0",
 				":0 - BOF"
+			],
+			[
+				"status",
+				"Git: Status"
+			],
+			[
+				"finish",
+				"Git-flow: Hotfix Finish"
 			],
 			[
 				":w",
@@ -213,10 +217,6 @@
 			[
 				"hotfix",
 				"Git-flow: Hotfix Start"
-			],
-			[
-				"status",
-				"Git: Status"
 			],
 			[
 				"pull",
@@ -584,6 +584,12 @@
 	},
 	"file_history":
 	[
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/cloud.html",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/index.html",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/controller.js",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/app/cloud.py",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/.gitignore",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/app/tests.py",
 		"/Users/fatrix/Dropbox/Repositories/fastapp/fastapp/executors/heartbeat.py",
 		"/Users/fatrix/Dropbox/Repositories/fastapp/fastapp/executors/local.py",
 		"/Users/fatrix/Dropbox/Repositories/sahli_net/app/sahli_net/local_settings.py",
@@ -598,7 +604,6 @@
 		"/Users/fatrix/Dropbox/Repositories/fastapp/fastapp/api_views.py",
 		"/Users/fatrix/Downloads/ddd/app.config",
 		"/Users/fatrix/Dropbox/Repositories/fastapp/fastapp/management/commands/start_worker.py",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/controller.js",
 		"/Users/fatrix/Dropbox/Repositories/fastapp/fastapp/utils.py",
 		"/Users/fatrix/Dropbox/Repositories/fastapp/setup.py",
 		"/Users/fatrix/Dropbox/Repositories/fastapp/requirements.txt",
@@ -616,14 +621,11 @@
 		"/Users/fatrix/Dropbox/Repositories/fastapp/fastapp/defaults.py",
 		"/Users/fatrix/Dropbox/Apps/sahli_net_fastapp_local/tutum/static/views/cloud.html",
 		"/Users/fatrix/Dropbox/Apps/sahli_net_fastapp_local/tutum/static/js/controller.js",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/app/cloud.py",
 		"/Users/fatrix/Dropbox/Repositories/fastapp/fastapp/log.py",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/app/cloud copy.py",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/setup.py",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/app/tests.py",
 		"/Users/fatrix/virtualenvs/sahli_net/lib/python2.7/site-packages/rest_framework/reverse.py",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/app/tests/tests.py",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/.gitignore",
 		"/Users/fatrix/Dropbox/Repositories/fastapp/fastapp/queue.py",
 		"/Users/fatrix/Dropbox/Repositories/fastapp/fastapp/management/commands/heartbeat.py",
 		"/Users/fatrix/Dropbox/Repositories/fastapp/fastapp/management/commands/console_dispatcher.py",
@@ -709,9 +711,7 @@
 		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/executors/heartbeat.py",
 		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/api_views.py",
 		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/static/js/app/controllers.js",
-		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/urls.py",
-		"/Users/fatrix/Dropbox/Repositories/django-fastapp/requirements.txt",
-		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/static/js/angular-pusher.min.js"
+		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/urls.py"
 	],
 	"find":
 	{
@@ -729,6 +729,15 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"log",
+			"raise e",
+			"raise",
+			"Firebase(",
+			"Firebase(/",
+			"ref",
+			"firebase",
+			"skyblue-cloud",
+			"firebase",
 			"set_perms",
 			"create",
 			"rabbit",
@@ -847,16 +856,7 @@
 			"linked",
 			"resource_uri",
 			"containers",
-			"instances",
-			"details",
-			"service.data",
-			"logms",
-			"logger",
-			"logger.err",
-			"logger.dd",
-			"logger.",
-			"logger.error",
-			"logger"
+			"instances"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -977,6 +977,18 @@
 		"selected_items":
 		[
 			[
+				"cloud.html",
+				"static/views/cloud.html"
+			],
+			[
+				"index",
+				"static/index.html"
+			],
+			[
+				"controller",
+				"static/js/controller.js"
+			],
+			[
 				"remote",
 				"fastapp/fastapp/executors/remote.py"
 			],
@@ -1031,10 +1043,6 @@
 			[
 				"services.js",
 				"fastapp/fastapp/static/js/app/services.js"
-			],
-			[
-				"controller",
-				"fastapp/fastapp/static/js/app/controllers.js"
 			],
 			[
 				"heartb",
@@ -1131,10 +1139,6 @@
 			[
 				"fastappcontroller",
 				"fastapp/fastapp/static/js/app/controllers.js"
-			],
-			[
-				"cloud.html",
-				"Apps/sahli_net_fastapp_local/tutum/static/views/cloud.html"
 			],
 			[
 				"cloud.py",
@@ -1483,10 +1487,6 @@
 			[
 				"run_dev",
 				"sahli_net/run_dev_docker.sh"
-			],
-			[
-				"run",
-				"sahli_net/run_sbx_docker.sh"
 			]
 		],
 		"width": 0.0

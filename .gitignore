@@ -2,3 +2,4 @@ app/*.pyc
 #build/
 #dist/
 skyblue_cloud.egg-info/
+skyblue-cloud.sublime-workspace
