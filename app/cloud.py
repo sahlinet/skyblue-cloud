@@ -142,9 +142,7 @@ def func(self):
 					return cached[0], cached[1]
 			
 			start = int(round(time.time() * 1000))
-			#base_url = "https://app.tutum.co"
 			base_url = "https://dashboard.tutum.co/"
-
 
 			headers = {
 				'Authorization': "ApiKey %s:%s" % (self.settings.TUTUM_USER, self.settings.TUTUM_APIKEY)
