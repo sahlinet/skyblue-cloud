@@ -234,6 +234,7 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
             url = service.hook_stop;
             $scope.alerts.push({ type: 'info', msg: 'Calling hook '+url });
             data = service.data.details.link_variables;
+            data.push({'name': service.data.name});
             hookService.call_hook(url, data).then(function() {
                 $scope.alerts.push({ type: 'success', msg: 'Hook ended successfully' });
                 $scope.alerts.push({ type: 'info', msg: 'Stopping service '+service.data.name});
@@ -263,6 +264,8 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
                 url = service.hook_start;
                 $scope.alerts.push({ type: 'info', msg: 'Calling hook '+url });
                 data = service.data.details.link_variables;
+                data.push({'name': service.data.name});
+
                 hookService.call_hook(url, data).then(function() {
                     $scope.alerts.push({ type: 'success', msg: 'Hook ended successfully' });
                 }, function() {

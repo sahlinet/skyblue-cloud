@@ -7,7 +7,7 @@
                 <h4> <img width="16px" src="img/tutum.png"/> {{ service.data.name }} 
                     <!--<small ng-class="service.data.state">{{ service.data.state }}</small>-->
                     <span ng-class="{Running:'label-success', Stopped:'label-primary', Terminated:''}[service.data.state]" class="label">{{ service.data.state }}</span>
-                    <span class="label">{{ service.data.size }}</span>
+                    <!-- <span class="label">{{ service.data.size }}</span> -->
                     <span ng-click="toggleSvc(service)" ng-class="{true:'glyphicon-plus', false:'glyphicon-minus', undefined:'glyphicon-minus'}[service.show]" class="glyphicon"></span>
                 </h4>
                 <div class="pull-header pull-right" ng-switch on="service.data.state">
@@ -33,20 +33,20 @@
                     <p>{{ service.data.image }}</p>
                 </div>
 
-                <div class="subbox" ng-controller="SizeCtrl">
+                <!--<div class="subbox" ng-controller="SizeCtrl">
                     <h4>Size</h4>
                     <a href="#" editable-select="service.data.size" e-ng-options="s.value as s.text for s in sizes" onaftersave="updateSizeConfig(service)">
                         {{ showSizes(service) }}
                     </a> 
-                </div>
+                </div>-->
 
                 <div class="subbox">
                     <h4>Links</h4>
                     <span ng-repeat="link in service.data.linked">
                         <p>
-                            <a e-disabled buttons="no" href="#" ng-click="" editable-text="link.name">{{link.to_application}}</a>
+                            <a e-disabled buttons="no" href="#" ng-click="" editable-text="link.name">{{ link.name }}</a>
                             <span>:</span>
-                            <a e-disabled buttons="no" href="#" ng-click="" editable-text="link.to_application">{{ link.to_application }}</a>
+                            <a e-disabled buttons="no" href="#" ng-click="" editable-text="link.to_service">{{ link.to_service }}</a>
                         </p>
                     </span>
                 </div>
