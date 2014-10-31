@@ -445,7 +445,7 @@ myApp.factory('hookService', ['$rootScope', '$http', '$q', '$timeout', function(
     };
 }]);
 
-myApp.controller("HookCtrl", ["$scope", "hookService", "$rootScope", "$timeout", function($scope, hookService, $rootScope, $timeout) {
+myApp.controller("HookCtrl", ["$scope", "hookService", "$rootScope", "$timeout", "$location", function($scope, hookService, $rootScope, $timeout, $location) {
     $scope.call_hook = function(service, mode) {
         if (mode == "start") {
             //$scope.$apply(service._hook_start_running=true);
@@ -455,7 +455,18 @@ myApp.controller("HookCtrl", ["$scope", "hookService", "$rootScope", "$timeout",
             url = service.hook_stop;
         }
         data = service.data.details.link_variables;
-        console.log(data);
+        console.log(service.data.custom_env_vars);
+        angular.forEach(service.data.custom_env_vars, function(value, key) {
+            console.log(value, key);
+            data[value['key']] = value['value'];
+        });
+        data['HOOK_URL'] = url;
+        data['ID'] = service.data.id;
+        data['NAME'] = service.data.name;
+
+        if ($location.host() == "localhost") {
+            url = "http://localhost:8000/fastapp/base/skyblue-cloud/exec/proxy_for_hooks/?json=";
+        } 
         hookService.call_hook(url, data);
         /*if (mode == "start") {
             $scope.$apply(service._hook_start_running=false;
