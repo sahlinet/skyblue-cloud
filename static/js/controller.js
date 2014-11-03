@@ -227,7 +227,7 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
     });
 
     $scope.stop = function(service) {
-        service.stopping = true;
+        service._stopping = true;
         if (!angular.isUndefined(service.hook_stop)) {
             url = service.hook_stop;
             $scope.alerts.push({ type: 'info', msg: 'Calling hook '+url });
@@ -252,12 +252,12 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
                 $scope.alerts.push({ type: 'danger', msg: 'Service '+service.data.name+' could not be stopped' });
             });
         }
-        service.stopping = false;
+        service._stopping = false;
     };
 
     $scope.start = function(service) {
         $scope.alerts.push({ type: 'info', msg: 'Starting service '+service.data.name});
-        service.starting = true;
+        service._starting = true;
         tutumService.start(service).then(function() {
             $scope.alerts.push({ type: 'success', msg: 'Service '+service.data.name+' started'});
             if (!angular.isUndefined(service.hook_start)) {
@@ -275,7 +275,7 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
         }, function() {
             $scope.alerts.push({ type: 'danger', msg: 'Service '+service.data.name+' could not be started' });
         });
-        service.starting = false;
+        service._starting = false;
     };
 
     $scope.toggle = function(service) {
@@ -308,18 +308,11 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
     };
 
     $scope.starting = function(service) {
-        return !(typeof service.starting === "undefined" || service.starting);
+        return !(typeof service._starting === "undefined" || service._starting);
     };
     $scope.stopping = function(service) {
-        return !(typeof service.stopping === "undefined" || service.stopping);
+        return !(typeof service._stopping === "undefined" || service._stopping);
     };
-
-    /*$scope.stop_hook_running = function(service) {
-        return !(typeof service._hook_stop_running === "undefined" || service._hook_stop_running);
-    };
-    $scope.start_hook_running = function(service) {
-        return !(typeof service._hook_start_running === "undefined" || service._hook_start_running);
-    };*/
 
 }]);
 
@@ -451,25 +444,21 @@ myApp.factory('hookService', ['$rootScope', '$http', '$q', '$timeout', function(
 
 myApp.controller("HookCtrl", ["$scope", "hookService", "$rootScope", "$timeout", "$location", function($scope, hookService, $rootScope, $timeout, $location) {
     $scope.stop_hook_running = function(service) {
-        if (service.data.name == "odoo") {
-            //console.log((!typeof service.hook_stop_running === "undefined" || service.hook_stop_running));
-        }
-        return (!typeof service.hook_stop_running === "undefined" || service.hook_stop_running);
+        return (!typeof service._hook_stop_running === "undefined" || service._hook_stop_running);
     };
     $scope.start_hook_running = function(service) {
-        if (service.data.name == "odoo") {
-            //console.log((!typeof service.hook_start_running === "undefined" || service.hook_start_running));
-        }
-        return (!typeof service.hook_start_running === "undefined" || service.hook_start_running);
+        return (!typeof service._hook_start_running === "undefined" || service._hook_start_running);
     };
     $scope.call_hook = function(service, mode) {
         // <img ng-show="starting(service)" src="img/ajax-loader.gif"/>
         console.log(mode);
         if (mode == "start") {
-            service.hook_start_running=true;
+            if (typeof service.hook_start === "undefined") { return; }
+            service._hook_start_running=true;
             url = service.hook_start;
         } else {
-            service.hook_stop_running=true;
+            if (typeof service.hook_stop === "undefined") { return; }
+            service._hook_stop_running=true;
             url = service.hook_stop;
         }
         data = service.data.details.link_variables;
@@ -487,9 +476,9 @@ myApp.controller("HookCtrl", ["$scope", "hookService", "$rootScope", "$timeout",
         hookService.call_hook(url, data).then(function() {
             console.log("deaactivate runner");
             if (mode == "start") {
-                service.hook_start_running=false;
+                service._hook_start_running=false;
             } else {
-                service.hook_stop_running=false;
+                service._hook_stop_running=false;
             }
         });
     };

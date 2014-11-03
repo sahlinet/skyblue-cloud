@@ -72,12 +72,12 @@
         </nav>
         <div class="topic" ng-show="showMainContent()">
           <div class="container">
-            <h3>Simplify and optimize how you manage your cloud</h3>
-            <h4>skyblue[cloud] wraps services of Tutum, DigitalOcean and more</h4>
+            <h3>Simplify and optimize how you manage your containers</h3>
+            <h4>skyblue/cloud is a Wrapper UI around <a href="http://www.tutum.co/">Tutum</a> with goodies.</h4>
           </div>
           <div class="topic__infos">
             <div class="container">
-              Configure and create containers and virtual servers in the cloud from one platform with great features.
+              Manage your Docker instances in the Cloud.
             </div>
           </div>
         </div>
@@ -89,16 +89,19 @@
           <div class="col-md-12">
             <div class="docs-article docs--start" id="overview">
               <h3>Why</h3>
-              <p>why is this important? bootstrap is a reliable and proven tool for developers, validated in the field. it reminds us of superman, a friend you can trust completely with a serious project.</p>
+              <p>skyblue/cloud will solve problems which Tutum does not solve.</p>
             </div>
             <div class="docs-article docs--start" id="overview">
               <h3>Features</h3>
-              <p>why is this important? bootstrap is a reliable and proven tool for developers, validated in the field. it reminds us of superman, a friend you can trust completely with a serious project.</p>
+              <p>Read what skyblue/cloud will do for you.</p>
               <dl>
-                <dt>persist configuration</dt>
-                <dd>after termination of a service (i.e. a container on tutum) there is no charge anymore to pay. but the data and configuration of the service is lost.</dd>
-                <dt>web hooks</dt>
-                <dd>before cycle the state of a service skyblue/cloud can call a hook.</dd>
+                <dt>Persist Configuration</dt>
+                <dd>After termination of a service the data and configuration of the service is lost. skyblue/cloud keeps your configuration.</dd>
+                <dt>Web Hooks</dt>
+                <dd>Before stopping and after starting your service a webhook is called with container's environment variables. The hooks are under your control and 
+                  can for example dump/restore a database, delete/update a record in a dns zone or pausing/activating monitoring.</dd>
+                <dt>Custom Workflow</dt>
+                <dd>skyblue/cloud is open source project to which you can contribute to. This project reacts to solve simple problems.</dd>
               </dl>
             </div>
           </div>
@@ -109,7 +112,7 @@
         <div class="container">
           <div ng-show="showMainContent()">
             <div class="download">
-              <span class="download__infos">You simply have to <b>try it</b>.</span>
+              <span class="download__infos">You have to <b>try it</b>.</span>
               <a class="btn btn-primary" href="/login">Login</a>
               <a class="btn" href="#/documentation">Read the Documentation</a>
             </div>
@@ -146,7 +149,7 @@
         <hr ng-show="showMainContent()" class="dashed" />
         <div class="copyright clearfix">
           <p><b>skyblue/cloud</b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="getting-started.html">Getting Started</a>&nbsp;&bull;&nbsp;<a href="documentation.html">Documentation</a></p>
-          <p>Built with <a href="https://angularjs.org/">AngularJS</a> and <a href="https://www.firebase.com/">Firebase</a></p>
+          <p>Running on <a href="https://sahli.net/skyblue/planet/">Skyblue/Planet</a> | Built with <a href="https://angularjs.org/">AngularJS</a> : <a href="https://www.firebase.com/">Firebase</a></p>
           <p>&copy; 2014 <a href="http://sahli.net" target="_blank">sahli.net</a></p>
         </div>
       </div>

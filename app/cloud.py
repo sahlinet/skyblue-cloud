@@ -220,6 +220,8 @@ def func(self):
 			result = self._change_state(service, service.id, "stop", "Stopped")
 			if result[0] not in [202]:
 				raise Exception(str(result))
+
+			service.clear_state("Stopped")
 			if service.terminate == 1:
 				time.sleep(2)
 				result = self._change_state(service, service.id, "delete", "Terminated")
