@@ -151,7 +151,7 @@ myApp.controller("loginCtrl", ["$rootScope", "$scope", "$location", "$timeout", 
         $rootScope.user = user;
         $scope.user = user;
         console.log('User ID: ' + user.uid + ', Provider: ' + user.provider);
-        $location.path("/cloud");
+        $rootScope.$apply(function() {$location.path("/cloud");});
     });
 
 }]);
