@@ -2,18 +2,12 @@ import sys
 thismodule = sys.modules[__name__]
 
 import json
-#import tutum
 import requests
 from bunch import Bunch
-
-class A(object):
-	pass
 
 def func(self):
 	import time
 	from firebase import firebase
-
-	a = A()
 
 	start = int(round(time.time() * 1000))
 	def logms(step):

@@ -1,19 +1,30 @@
 {% verbatim %}
     <div>
         <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-        <div class="row" ng-repeat="service in services" >
+        <div class="row">
+
+            <div class="col-lg-8">
+                <h3>Filter</h3>
+                <form>
+                    <input ng-model="searchText" type="text" class="form-control" placeholder="Enter words (service name, images)">
+                </form>
+            </div>
+        </div>
+
+        <h3>Services</h3>
+        <div class="row" ng-repeat="service in services | orderByPriority | filter:searchText" >
             <div class="col-lg-8">
                <hr> 
-                <h4> <img width="16px" src="img/tutum.png"/> {{ service.data.name }} 
+                <h5> <img width="16px" src="img/tutum.png"/> {{ service.data.name }} 
                     <!--<small ng-class="service.data.state">{{ service.data.state }}</small>-->
                     <span ng-class="{Running:'label-success', Stopped:'label-primary', Terminated:''}[service.data.state]" class="label">{{ service.data.state }}</span>
                     <!-- <span class="label">{{ service.data.size }}</span> -->
                     <span ng-click="toggleSvc(service)" ng-class="{true:'glyphicon-plus', false:'glyphicon-minus', undefined:'glyphicon-minus'}[service.show]" class="glyphicon"></span>
-                </h4>
+                </h5>
                 <div class="pull-header pull-right" ng-switch on="service.data.state">
-                    <button type="button" class="btn btn-primary btn-sm" ng-switch-when='Stopped' ng-click="start(service)">Start</button>
-                    <button type="button" class="btn btn-primary default btn-sm" ng-switch-when='Terminated' ng-click="start(service)">Start</button>
-                    <button type="button" class="btn btn-warning default btn-sm" ng-switch-when='Running' ng-click="stop(service)">Stop</button>
+                    <button type="button" class="btn btn-primary btn-sm" ng-switch-when='Stopped' ng-class="{true: 'disabled', false:''}[starting(service)]" ng-click="start(service)"><img ng-show="starting(service)" src="img/ajax-loader.gif"/>&nbsp;Start</button>
+                    <button type="button" class="btn btn-primary default btn-sm" ng-switch-when='Terminated' ng-class="{true: 'disabled', false:''}[starting(service)]" ng-click="start(service)"><img ng-show="starting(service)" src="img/ajax-loader.gif"/>&nbsp;Start</button>
+                    <button type="button" class="btn btn-warning default btn-sm" ng-switch-when='Running' ng-class="{true: 'disabled', false:''}[stopping(service)]" ng-click="stop(service)"><img ng-show="stopping(service)" src="img/ajax-loader.gif"/>&nbsp;Stop</button>
                 </div> 
             </div> 
 
@@ -32,13 +43,6 @@
                     <h4>Image</h4>
                     <p>{{ service.data.image }}</p>
                 </div>
-
-                <!--<div class="subbox" ng-controller="SizeCtrl">
-                    <h4>Size</h4>
-                    <a href="#" editable-select="service.data.size" e-ng-options="s.value as s.text for s in sizes" onaftersave="updateSizeConfig(service)">
-                        {{ showSizes(service) }}
-                    </a> 
-                </div>-->
 
                 <div class="subbox">
                     <h4>Links</h4>
@@ -89,13 +93,13 @@
                     <div ng-controller="HookCtrl">
                         <p>
                             <span>Hook on start: </span><a href="#" editable-text="service.hook_start" onaftersave="updateTerminateConfig(service)">{{ service.hook_start || 'empty' }}</a>
-                            <button type="button" class="btn btn-default btn-xs" ng-click="call_hook(service, 'start')">
-                                <span class="glyphicon glyphicon-star" ng-show="service._hook_start_running"></span> Test hook</button>
+                            <button type="button" ng-class="{true: 'disabled', false:''}[start_hook_running(service)]" class="btn btn-primary btn-xs" ng-click="call_hook(service, 'start')">
+                                <img ng-show="start_hook_running(service)" src="img/ajax-loader.gif"/>&nbsp;Test hook</button>
                             </p>
                             <p>
                                 <span>Hook on stop: </span><a href="#" editable-text="service.hook_stop" onaftersave="updateTerminateConfig(service)">{{ service.hook_stop || 'empty' }}</a>
-                                <button type="button" class="btn btn-default btn-xs" ng-click="call_hook(service, 'stop')">
-                                    <span class="glyphicon glyphicon-star" ng-show="service._hook_stop_running"></span> Test hook</button>
+                                <button type="button" ng-class="{true: 'disabled', false:''}[stop_hook_running(service)]" class="btn btn-primary btn-xs" ng-click="call_hook(service, 'stop')">
+                                    <img ng-show="stop_hook_running(service)" src="img/ajax-loader.gif"/>&nbsp;Test hook</button>
                                 </p>
                     </div>
                 </div>

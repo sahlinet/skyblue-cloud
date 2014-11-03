@@ -1,4 +1,4 @@
-var myApp = angular.module("MyApp", ["firebase", "ngRoute", "xeditable", "ui.bootstrap", "ngClipboard"]).
+var myApp = angular.module("MyApp", ["firebase", "ngRoute", "xeditable", "ui.bootstrap", "ui.bootstrap.tpls", "ngClipboard"]).
 config(function($routeProvider, $locationProvider) {
     $routeProvider.
     when("/start",
@@ -39,7 +39,7 @@ myApp.config(['ngClipProvider', function(ngClipProvider) {
     ngClipProvider.setPath("bower_components/zeroclipboard/dist/ZeroClipboard.swf");
 }]);
 
-myApp.factory('tutumService', ['$rootScope', '$http', '$q', function($rootScope, $http, $q) {
+myApp.factory('tutumService', ['$rootScope', '$http', '$q', 'hookService', function($rootScope, $http, $q, hookService) {
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     if (!angular.isUndefined($rootScope.user)) {
         var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
@@ -59,15 +59,11 @@ myApp.factory('tutumService', ['$rootScope', '$http', '$q', function($rootScope,
             ];
         },
         'update': function(name) {
-            var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
+            var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&async&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
             url=url+"&name="+name;
-            return $http(
-            {
-                method: 'get',
-                url: url
-            });
+            return hookService.call_hook(url, {});
         },
-        'updateAll': function(services) {
+        /*'updateAll': function(services) {
 
             var defer = $q.defer();
             var promises = [];
@@ -97,26 +93,28 @@ myApp.factory('tutumService', ['$rootScope', '$http', '$q', function($rootScope,
             });
             return defer.promise;
 
-        },
+        },*/
 
         'stop': function(service) {
-            var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
+            var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&async&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
             data = {
                 action: "stop",
                 service_name: service.data.name
             };
-            return $http(
-                { method: 'post', url: url, data: jQuery.param(data) });
+            return hookService.call_hook(url, data);
+            /*return $http(
+                { method: 'post', url: url, data: jQuery.param(data) });*/
         },
 
         'start': function(service) {
-            var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
+            var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&async&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
             data = {
                 action: "start",
                 service_name: service.data.name
             };
-            return $http(
-                { method: 'post', url: url, data: jQuery.param(data) });
+            return hookService.call_hook(url, data);
+            /*return $http(
+                { method: 'post', url: url, data: jQuery.param(data) });*/
         }
     };
 }]);
@@ -162,7 +160,6 @@ myApp.controller("navigationCtrl", ["$rootScope", "$scope", "$location", "loginS
 
     $rootScope.location = $location;
     $scope.current = function(text) {
-        console.log(text);
         return ($rootScope.location.path().search(text) != -1);
     };
 
@@ -230,6 +227,7 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
     });
 
     $scope.stop = function(service) {
+        service.stopping = true;
         if (!angular.isUndefined(service.hook_stop)) {
             url = service.hook_stop;
             $scope.alerts.push({ type: 'info', msg: 'Calling hook '+url });
@@ -254,10 +252,12 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
                 $scope.alerts.push({ type: 'danger', msg: 'Service '+service.data.name+' could not be stopped' });
             });
         }
+        service.stopping = false;
     };
 
     $scope.start = function(service) {
         $scope.alerts.push({ type: 'info', msg: 'Starting service '+service.data.name});
+        service.starting = true;
         tutumService.start(service).then(function() {
             $scope.alerts.push({ type: 'success', msg: 'Service '+service.data.name+' started'});
             if (!angular.isUndefined(service.hook_start)) {
@@ -275,6 +275,7 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
         }, function() {
             $scope.alerts.push({ type: 'danger', msg: 'Service '+service.data.name+' could not be started' });
         });
+        service.starting = false;
     };
 
     $scope.toggle = function(service) {
@@ -305,6 +306,20 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
     $scope.doSomething = function () {
         console.log("NgClip...");
     };
+
+    $scope.starting = function(service) {
+        return !(typeof service.starting === "undefined" || service.starting);
+    };
+    $scope.stopping = function(service) {
+        return !(typeof service.stopping === "undefined" || service.stopping);
+    };
+
+    /*$scope.stop_hook_running = function(service) {
+        return !(typeof service._hook_stop_running === "undefined" || service._hook_stop_running);
+    };
+    $scope.start_hook_running = function(service) {
+        return !(typeof service._hook_start_running === "undefined" || service._hook_start_running);
+    };*/
 
 }]);
 
@@ -360,7 +375,7 @@ myApp.controller('ConfigurationCtrl',  function($scope, $filter) {
         $scope.services.$save(service.data.name);
     };
 
-    $scope.full_role = {"full": true}
+    $scope.full_role = {"full": true};
 
     /*$scope.showRoleConfig = function(service) {
         // initial default
@@ -394,19 +409,12 @@ myApp.factory('hookService', ['$rootScope', '$http', '$q', '$timeout', function(
     return {
         'call_hook': function(url, data) {
 
-            /*if (mode == "start") {
-                service._hook_start_running=true;
-                url = service.hooks.start;
-            } else {
-                service._hook_stop_running=true;
-                url = service.hooks.stop;
-            }*/
-
             call = function(url, data) {
                 //$scope.alerts.push({ type: 'success', msg: 'Hook on start initiated' } );
                 deferred = $q.defer();
                 run = function(url, data) {
 
+                    console.log(data);
                     $http({
                         method: 'POST',
                         url: url,
@@ -431,10 +439,6 @@ myApp.factory('hookService', ['$rootScope', '$http', '$q', '$timeout', function(
                 return deferred.promise;
             };
 
-            //service = service;
-            //mode = service.mode;
-
-            //set_state(true);
             return call(url, data).then(function(data) {
                 console.log("finished");
                 console.log(data);
@@ -446,16 +450,29 @@ myApp.factory('hookService', ['$rootScope', '$http', '$q', '$timeout', function(
 }]);
 
 myApp.controller("HookCtrl", ["$scope", "hookService", "$rootScope", "$timeout", "$location", function($scope, hookService, $rootScope, $timeout, $location) {
+    $scope.stop_hook_running = function(service) {
+        if (service.data.name == "odoo") {
+            //console.log((!typeof service.hook_stop_running === "undefined" || service.hook_stop_running));
+        }
+        return (!typeof service.hook_stop_running === "undefined" || service.hook_stop_running);
+    };
+    $scope.start_hook_running = function(service) {
+        if (service.data.name == "odoo") {
+            //console.log((!typeof service.hook_start_running === "undefined" || service.hook_start_running));
+        }
+        return (!typeof service.hook_start_running === "undefined" || service.hook_start_running);
+    };
     $scope.call_hook = function(service, mode) {
+        // <img ng-show="starting(service)" src="img/ajax-loader.gif"/>
+        console.log(mode);
         if (mode == "start") {
-            //$scope.$apply(service._hook_start_running=true);
+            service.hook_start_running=true;
             url = service.hook_start;
         } else {
-            //service._hook_stop_running=true;
+            service.hook_stop_running=true;
             url = service.hook_stop;
         }
         data = service.data.details.link_variables;
-        console.log(service.data.custom_env_vars);
         angular.forEach(service.data.custom_env_vars, function(value, key) {
             console.log(value, key);
             data[value['key']] = value['value'];
@@ -465,13 +482,15 @@ myApp.controller("HookCtrl", ["$scope", "hookService", "$rootScope", "$timeout",
         data['NAME'] = service.data.name;
 
         if ($location.host() == "localhost") {
-            url = "http://localhost:8000/fastapp/base/skyblue-cloud/exec/proxy_for_hooks/?json=";
-        } 
-        hookService.call_hook(url, data);
-        /*if (mode == "start") {
-            $scope.$apply(service._hook_start_running=false;
-        } else {
-            service._hook_stop_running=false;
-        }*/
+            url = "http://localhost:8000/fastapp/base/skyblue-cloud/exec/proxy_for_hooks/?json&async";
+        }
+        hookService.call_hook(url, data).then(function() {
+            console.log("deaactivate runner");
+            if (mode == "start") {
+                service.hook_start_running=false;
+            } else {
+                service.hook_stop_running=false;
+            }
+        });
     };
 }]);
