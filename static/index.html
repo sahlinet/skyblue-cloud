@@ -19,6 +19,27 @@
   <script src='https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js' type="text/javascript"></script>
   <script type='text/javascript' src='https://cdn.firebase.com/js/simple-login/1.6.0/firebase-simple-login.js'></script>
 
+  <!-- sentry -->
+  <script src="//d3nslu0hdya83q.cloudfront.net/dist/1.0/raven.min.js"></script>
+  <script>
+  Raven.config('{{SENTRY_URL_JS}}', {
+      whitelistUrls: ["{{SENTRY_WHITELIST_JS}}"]
+  }).install();
+
+
+  // record a simple message
+  Raven.captureMessage('hello world!')
+
+  // capture an exception
+  try {
+      errorThrowingCode();
+  } catch(err) {
+      Raven.captureException(err);
+  }
+
+  </script>
+
+
   <!-- xeditable -->
   <link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
   <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
