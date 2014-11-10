@@ -60,40 +60,9 @@ myApp.factory('tutumService', ['$rootScope', '$http', '$q', 'hookService', funct
         },
         'update': function(name) {
             var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&async&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
-            url=url+"&name="+name;
+            //url=url+"&name="+name;
             return hookService.call_hook(url, {});
         },
-        /*'updateAll': function(services) {
-
-            var defer = $q.defer();
-            var promises = [];
-            var keys = services.$getIndex();
-
-            angular.forEach(keys, function(key){
-
-                var service = services[key];
-                var name = service.data.name;
-
-                var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
-                url=url+"&name="+name;
-
-                console.log("syncing");
-                console.log(name);
-
-                promises.push($http.get(url));
-            });
-
-
-            $q.all(promises).then(function(update) {
-                console.log("tutumService.updateAll() done");
-                defer.resolve();
-            }, function(update) {
-                console.error("tutumService.updateAll() done with error");
-                defer.reject();
-            });
-            return defer.promise;
-
-        },*/
 
         'stop': function(service) {
             var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&async&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
@@ -192,9 +161,6 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
 
     $scope.alerts = [];
 
-    //var projectsRef = new Firebase("https://skyblue-cloud-dev.firebaseio.com/users/"+$rootScope.user.uid+"/projects");
-    //var servicesRef = new Firebase("https://skyblue-cloud-dev.firebaseio.com/users/"+$rootScope.user.uid+"/services");
-
     var projectsRef = new Firebase(window.firebase_url+"/users/"+$rootScope.user.uid+"/projects");
     var servicesRef = new Firebase(window.firebase_url+"/users/"+$rootScope.user.uid+"/services");
 
@@ -214,7 +180,6 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
         $scope.alerts.push({ type: 'info', msg: 'Sync starting' } );
 
         var keys = $scope.services.$getIndex();
-        //var done = tutumService.updateAll($scope.services);
         var done = tutumService.update();
 
         done.then(function done(){
@@ -227,12 +192,12 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
     });
 
     $scope.stop = function(service) {
+        console.log($rootScope.call_hook);
         service._stopping = true;
         if (!angular.isUndefined(service.hook_stop)) {
             url = service.hook_stop;
-            $scope.alerts.push({ type: 'info', msg: 'Calling hook '+url });
+            $scope.alerts.push({ type: 'info', msg: 'Call Hook '+url });
             data = service.data.details.link_variables;
-            data.push({'name': service.data.name});
             hookService.call_hook(url, data).then(function() {
                 $scope.alerts.push({ type: 'success', msg: 'Hook ended successfully' });
                 $scope.alerts.push({ type: 'info', msg: 'Stopping service '+service.data.name});
@@ -240,8 +205,10 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
                     $scope.alerts.push({ type: 'success', msg: 'Service '+service.data.name+' stopped'});
                 }, function() {
                     $scope.alerts.push({ type: 'danger', msg: 'Service '+service.data.name+' could not be stopped' });
+                    service._stopping = false;
                 });
             }, function() {
+                service._stopping = false;
                 $scope.alerts.push({ type: 'danger', msg: 'Hook returned an error'});
             });
         } else {
@@ -249,6 +216,7 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
             tutumService.stop(service).then(function() {
                 $scope.alerts.push({ type: 'success', msg: 'Service '+service.data.name+' stopped'});
             }, function() {
+                service._stopping = false;
                 $scope.alerts.push({ type: 'danger', msg: 'Service '+service.data.name+' could not be stopped' });
             });
         }
@@ -264,7 +232,7 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
                 url = service.hook_start;
                 $scope.alerts.push({ type: 'info', msg: 'Calling hook '+url });
                 data = service.data.details.link_variables;
-                data.push({'name': service.data.name});
+                data['name'] = service.data.name;
 
                 hookService.call_hook(url, data).then(function() {
                     $scope.alerts.push({ type: 'success', msg: 'Hook ended successfully' });
@@ -308,10 +276,10 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
     };
 
     $scope.starting = function(service) {
-        return !(typeof service._starting === "undefined" || service._starting);
+        return (!typeof service._starting === "undefined" || service._starting);
     };
     $scope.stopping = function(service) {
-        return !(typeof service._stopping === "undefined" || service._stopping);
+        return (!typeof service._stopping === "undefined" || service._stopping);
     };
 
 }]);
@@ -324,16 +292,6 @@ myApp.controller('SizeCtrl',  ["$scope", "$filter", "tutumService", function($sc
     $scope.showSizes = function(service) {
 
         var size = $filter('filter')($scope.sizes, {value: service.data.size}, true);
-        if (service.data.name == "cache") {
-            console.log(size);
-            console.log(size);
-            console.log(service.data.size);
-            console.info((service.data.size && size.length) ? size[0].text : 'XS');
-            console.info((service.data.size && size.length));
-            console.info(service.data.size);
-            console.info(size.length);
-            console.info(size[0].text);
-        }
         return (service.data.size && size.length) ? size[0].text : 'XS';
     };
 
@@ -369,52 +327,30 @@ myApp.controller('ConfigurationCtrl',  function($scope, $filter) {
     };
 
     $scope.full_role = {"full": true};
-
-    /*$scope.showRoleConfig = function(service) {
-        // initial default
-        console.log(service.data.name);
-        //console.log(service.roles);
-        if (angular.isUndefined(service.roles)) {
-            service.roles= "";
-            $scope.updateRoleConfig(service);
-        }
-
-        var selected = [];
-        angular.foreach($scope.role_config, function(s) { 
-          if (service.roles.indexof(s.value) >= 0) {
-            selected.push(s.text);
-          }
-        });
-
-        return selected.length ? selected.join(', ') : 'Not set';
-    };
-
-    $scope.updateRoleConfig= function(service) {
-        console.log(service.roles);
-        $scope.services.$save(service.data.name).then(function(){console.log("OK")}).catch(function(){console.log("NOK")});
-    };
-    */
-
 });
 
-myApp.factory('hookService', ['$rootScope', '$http', '$q', '$timeout', function($rootScope, $http, $q, $timeout) {
+myApp.factory('hookService', ['$rootScope', '$http', '$q', '$timeout', '$location', function($rootScope, $http, $q, $timeout, $location) {
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     return {
-        'call_hook': function(url, data) {
+        'call_hook': function(service, url, data) {
+
 
             call = function(url, data) {
                 //$scope.alerts.push({ type: 'success', msg: 'Hook on start initiated' } );
                 deferred = $q.defer();
+
+                if ($location.host() == "localhost") {
+                    url = "http://localhost:8000/fastapp/base/skyblue-cloud/exec/proxy_for_hooks/?json&async";
+                }
                 run = function(url, data) {
 
-                    console.log(data);
                     $http({
                         method: 'POST',
                         url: url,
                         data: $.param(data)
                     }).success(function(data, status, headers, config) {
                         if (data.status != "RUNNING") {
-                            deferred.resolve(data, status, headers, config);
+                            deferred.resolve(status);
                         } else {
                             url = data.url;
                             $timeout(function() {
@@ -423,6 +359,7 @@ myApp.factory('hookService', ['$rootScope', '$http', '$q', '$timeout', function(
                         }
                     }).error(function(data, status, headers, config) {
                         console.error(status);
+                        deferred.reject(status);
                     }).then(function(result) {
                         console.log("one retry/loop");
                     });
@@ -432,12 +369,7 @@ myApp.factory('hookService', ['$rootScope', '$http', '$q', '$timeout', function(
                 return deferred.promise;
             };
 
-            return call(url, data).then(function(data) {
-                console.log("finished");
-                console.log(data);
-                //set_state(false);
-                //$scope.alerts.push({ type: 'success', msg: 'Hook on start finished with '+data.status } );
-            });
+            return call(url, data);
         }
     };
 }]);
@@ -449,9 +381,17 @@ myApp.controller("HookCtrl", ["$scope", "hookService", "$rootScope", "$timeout",
     $scope.start_hook_running = function(service) {
         return (!typeof service._hook_start_running === "undefined" || service._hook_start_running);
     };
+    $scope._hook_stop = function(service, mode, result) {
+        if (mode == "start") {
+                service._hook_start_running=false;
+                service._hook_start_result=result;
+            } else {
+                service._hook_stop_running=false;
+                service._hook_stop_result=result;
+        }
+    };
+
     $scope.call_hook = function(service, mode) {
-        // <img ng-show="starting(service)" src="img/ajax-loader.gif"/>
-        console.log(mode);
         if (mode == "start") {
             if (typeof service.hook_start === "undefined") { return; }
             service._hook_start_running=true;
@@ -466,20 +406,19 @@ myApp.controller("HookCtrl", ["$scope", "hookService", "$rootScope", "$timeout",
             console.log(value, key);
             data[value['key']] = value['value'];
         });
+
         data['HOOK_URL'] = url;
-        data['ID'] = service.data.id;
+        data['id'] = service.data.id;
         data['NAME'] = service.data.name;
 
-        if ($location.host() == "localhost") {
-            url = "http://localhost:8000/fastapp/base/skyblue-cloud/exec/proxy_for_hooks/?json&async";
-        }
-        hookService.call_hook(url, data).then(function() {
-            console.log("deaactivate runner");
-            if (mode == "start") {
-                service._hook_start_running=false;
-            } else {
-                service._hook_stop_running=false;
-            }
+        hookService.call_hook(url, data).then(function(result, status) {
+            $scope._hook_stop(service, mode);
+            $scope.alerts.push({ type: 'success', msg: 'Hook '+url+' call successfully: '+result+'' } );
+            console.log(result);
+        }, function(result) {
+            $scope.alerts.push({ type: 'warning', msg: 'Hook '+url+' call failed: '+result+'' } );
+            $scope._hook_stop(service, mode);
+            console.log(result);
         });
     };
 }]);

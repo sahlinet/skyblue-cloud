@@ -188,26 +188,10 @@
 	"buffers":
 	[
 		{
-			"file": "static/views/cloud.html",
+			"contents": "Remote:   origin @ ssh://git@git.sahli.net:10022/philipsahli/skyblue-cloud.git\nLocal:    master ~/Dropbox/Repositories/skyblue-cloud\nHead:     51e7a41 fix login callback\n\n\nChanges:\n	Modified   static/js/controller.js\n\n\n# Movement:\n#    r = refresh status\n#    1-5 = jump to section\n#    n = next item, N = next section\n#    p = previous item, P = previous section\n#\n# Staging:\n#    s = stage file/section, S = stage all unstaged files\n#    ctrl+shift+s = stage all unstaged and untracked files\n#    u = unstage file/section, U = unstage all files\n#    backspace = discard file/section, shift+backspace = discard everything\n#\n# Commit:\n#    c = commit, C = commit -a (add unstaged)\n#    ctrl+shift+c = commit --amend (amend previous commit)\n#\n# Other:\n#    i = ignore file, I = ignore pattern\n#    enter = open file\n#    d = view diff\n#\n# Stashes:\n#    a = apply stash, A = pop stash\n#    z = create stash, Z = create stash including untracked files\n#    backspace = discard stash",
 			"settings":
 			{
-				"buffer_size": 5976,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "static/js/controller.js",
-			"settings":
-			{
-				"buffer_size": 17218,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Remote:   origin @ ssh://git@git.sahli.net:10022/philipsahli/skyblue-cloud.git\nLocal:    master ~/Dropbox/Repositories/skyblue-cloud\nHead:     acb25cc add parameter to hook call, send to local proxy\n\n\nChanges:\n	Modified   static/views/cloud.html\n\n\n# Movement:\n#    r = refresh status\n#    1-5 = jump to section\n#    n = next item, N = next section\n#    p = previous item, P = previous section\n#\n# Staging:\n#    s = stage file/section, S = stage all unstaged files\n#    ctrl+shift+s = stage all unstaged and untracked files\n#    u = unstage file/section, U = unstage all files\n#    backspace = discard file/section, shift+backspace = discard everything\n#\n# Commit:\n#    c = commit, C = commit -a (add unstaged)\n#    ctrl+shift+c = commit --amend (amend previous commit)\n#\n# Other:\n#    i = ignore file, I = ignore pattern\n#    enter = open file\n#    d = view diff\n#\n# Stashes:\n#    a = apply stash, A = pop stash\n#    z = create stash, Z = create stash including untracked files\n#    backspace = discard stash",
-			"settings":
-			{
-				"buffer_size": 1008,
+				"buffer_size": 979,
 				"line_ending": "Unix",
 				"name": "*git-status*: skyblue-cloud",
 				"read_only": true,
@@ -215,10 +199,18 @@
 			}
 		},
 		{
-			"file": "app/cloud.py",
+			"file": "static/js/controller.js",
 			"settings":
 			{
-				"buffer_size": 11941,
+				"buffer_size": 18660,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "\nKontaktadresse\nPhilip Sahli\nTannackerstrasse 26\nGümligen\nSchweiz\nphilip@sahli.net\n \nHaftungsausschluss\nDer Autor übernimmt keinerlei Gewähr hinsichtlich der  inhaltlichen Richtigkeit, Genauigkeit, Aktualität, Zuverlässigkeit und  Vollständigkeit der Informationen.\nHaftungsansprüche gegen den Autor wegen Schäden materieller  oder immaterieller Art, welche aus dem Zugriff oder der Nutzung bzw.  Nichtnutzung der veröffentlichten , durch Missbrauch der  Verbindung oder durch technische Störungen entstanden sind, werden  ausgeschlossen\n                      Alle  Angebote sind unverbindlich. Der Autor behält es sich ausdrücklich vo, Teile  der Seiten oder das gesamte Angebot ohne gesonderte Ankündigung zu verändern,  zu ergänzen, zu löschen oder die Veröffentlichung zeitweise odeendgültig  einzustellen.\n                      \nHaftung für Links\nVerweise und Links auf Webseiten  Dritter liegen ausserhalb unseres Verantwortungsbereichs Es wird jegliche Verantwortung für solche Webseiten  abgelehnt.  Der Zugriff und die Nutzung solcher Webseiten erfolgen  auf eigene Gefahr des Nutzers oder der Nutzerin. \n                       \nUrheberrechte\nDie Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen Dateien auf der Website gehören ausschliesslich Philip Sahli oder den speziell genannten  Rechtsinhabern. Für die Reproduktion jeglicher Elemente ist die schriftliche Zustimmung der Urheberrechtsträger im Voraus einzuholen.\n                       \nDatenschutzerklärung für die Nutzung von Google Adsense \nDiese Website benutzt Google AdSense, einen Dienst zum Einbinden von  Werbeanzeigen der Google Inc. (\"Google\"). Google AdSense verwendet  sog. \"Cookies\", Textdateien, die auf Ihrem Computer gespeichert  werden und die eine Analyse der Benutzung der Website ermöglicht. Google  AdSense verwendet auch so genannte Web Beacons (unsichtbare Grafiken). Durch  diese Web Beacons können Informationen wie der Besucherverkehr auf diesen  Seiten ausgewertet werden. \nDie durch Cookies und Web Beacons erzeugten Informationen über die Benutzung  dieser Website (einschließlich Ihrer IP-Adresse) und Auslieferung von  Werbeformaten werden an einen Server von Google in den USA übertragen und dort  gespeichert. Diese Informationen können von Google an Vertragspartner von  Google weiter gegeben werden. Google wird Ihre IP-Adresse jedoch nicht mit  anderen von Ihnen gespeicherten Daten zusammenführen. \nSie können die Installation der Cookies durch eine entsprechende  Einstellung Ihrer Browser Software verhindern; wir weisen Sie jedoch darauf  hin, dass Sie in diesem Fall gegebenenfalls nicht sämtliche Funktionen dieser  Website voll umfänglich nutzen können. Durch die Nutzung dieser Website  erklären Sie sich mit der Bearbeitung der über Sie erhobenen Daten durch Google  in der zuvor beschriebenen Art und Weise und zu dem zuvor benannten Zweck  einverstanden. \n                       \nDatenschutzerklärung für die Nutzung von Google Analytics\nDiese Website benutzt Google Analytics, einen Webanalysedienst der  Google Inc. (\"Google\"). Google Analytics verwendet sog.  \"Cookies\", Textdateien, die auf Ihrem Computer gespeichert werden und  die eine Analyse der Benutzung der Website durch Sie ermöglichen. Die durch den  Cookie erzeugten Informationen über Ihre Benutzung dieser Website werden in der  Regel an einen Server von Google in den USA übertragen und dort gespeichert. Im  Falle der Aktivierung der IP-Anonymisierung auf dieser Webseite wird Ihre  IP-Adresse von Google jedoch innerhalb von Mitgliedstaaten der Europäischen  Union oder in anderen Vertragsstaaten des Abkommens über den Europäischen Wirtschaftsraum  zuvor gekürzt. \nNur in Ausnahmefällen wird die volle IP-Adresse an einen Server von  Google in den USA übertragen und dort gekürzt. Google wird diese  Informationen benutzen, um Ihre Nutzung der Website auszuwerten, um Reports  über die Websiteaktivitäten für die Websitebetreiber zusammenzustellen und um  weitere mit der Websitenutzung und der Internetnutzung verbundene  Dienstleistungen zu erbringen. Auch wird Google diese Informationen  gegebenenfalls an Dritte übertragen, sofern dies gesetzlich vorgeschrieben oder  soweit Dritte diese Daten im Auftrag von Google verarbeiten. Die im  Rahmen von Google Analytics von Ihrem Browser übermittelte IP-Adresse wird  nicht mit anderen Daten von Google zusammengeführt. \nSie können die Installation der Cookies durch eine  entsprechende Einstellung Ihrer Browser Software verhindern; wir weisen Sie  jedoch darauf hin, dass Sie in diesem Fall gegebenenfalls nicht sämtliche  Funktionen dieser Website voll umfänglich nutzen können. Durch  die Nutzung dieser Website erklären Sie sich mit der Bearbeitung der über Sie  erhobenen Daten durch Google in der zuvor beschriebenen Art und Weise und zu  dem zuvor benannten Zweck einverstanden.\n                       \nQuelle\nDieses Impressum wurde am 08.11.2014 mit dem  Impressum-Generator http://www.bag.ch/impressum-generator der Firma Brunner AG, Druck und Medien, in  Kriens erstellt. Die Brunner AG, Druck und Medien, in Kriens übernimmt keine  Haftung. \n                      \n                    \n                  ",
+			"settings":
+			{
+				"buffer_size": 5176,
 				"line_ending": "Unix"
 			}
 		}
@@ -226,9 +218,17 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 107.0,
+		"height": 47.0,
 		"selected_items":
 		[
+			[
+				":0",
+				":0 - BOF"
+			],
+			[
+				":w",
+				":w - Save"
+			],
 			[
 				"push",
 				"Git: Push Current Branch"
@@ -254,10 +254,6 @@
 				"Legit: Publish"
 			],
 			[
-				":0",
-				":0 - BOF"
-			],
-			[
 				"feature start",
 				"Git-flow: Feature Start"
 			],
@@ -268,10 +264,6 @@
 			[
 				"feature",
 				"Git-flow: Feature Start"
-			],
-			[
-				":w",
-				":w - Save"
 			],
 			[
 				"hotfix",
@@ -631,12 +623,15 @@
 	},
 	"file_history":
 	[
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/app/cloud.py",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/controller.js",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/index.html",
-		"/Users/fatrix/Dropbox/Repositories/docker-postgresql-test/startup_postgres.sh",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/cloud.html",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/login.html",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/controller.js",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/cloud.html",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/index.html",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/app/cloud.py",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/welcome.html",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/services.js",
+		"/Users/fatrix/Dropbox/Repositories/docker-postgresql-test/startup_postgres.sh",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/.gitignore",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/app/tests.py",
 		"/Users/fatrix/Dropbox/Repositories/fastapp/fastapp/executors/heartbeat.py",
@@ -755,10 +750,7 @@
 		"/Users/fatrix/Dropbox/Repositories/sahli.net/app/sahli_net/envs/sandbox.py",
 		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/models.py",
 		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/utils.py",
-		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/management/commands/start_worker.py",
-		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/queue.py",
-		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/executors/heartbeat.py",
-		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/api_views.py"
+		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/management/commands/start_worker.py"
 	],
 	"find":
 	{
@@ -773,9 +765,48 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"type",
+			"Hook",
+			"hook",
+			"call_hook",
+			"$scope.login",
+			"Filter",
+			"starting",
+			"stopping",
+			"hook_stop_running",
+			"starting",
+			"clear_state",
+			"alert.html",
+			"Ctrl",
+			"views",
+			"disabled",
+			"scope.start_hook_running",
+			"call_hook",
+			"_hook_stop_running",
+			"_hook_start_running",
+			"starting",
+			"call_hook",
+			"Start",
+			"start(service)",
+			"service",
+			"running",
+			"Sync",
+			"tutumService",
+			"hookService",
+			"call_hook",
+			"tutumService",
+			"$on",
+			"tutumService",
+			"tutumService.update()",
+			"$on",
+			"on.",
+			"hookService",
+			"Running",
+			"sync",
+			"repeat",
 			"hook",
 			"Auth",
 			"Authentica",
@@ -864,46 +895,7 @@
 			"http",
 			"Apy",
 			"transport",
-			"pdb",
-			"CSRFCheck",
-			"BaseAuthentication",
-			"TokenAuthentication",
-			"transport",
-			"Base",
-			"Base.get",
-			"active_base",
-			"my bases",
-			"Ctrl",
-			"transport",
-			"verbatim",
-			"share",
-			"controller",
-			"authentication_classes",
-			"IsAuthenti",
-			"Setting",
-			"Transportend",
-			"save",
-			"csrf",
-			"angular.js",
-			"push",
-			"transportendpoint",
-			"baseservices",
-			"apy1",
-			"loadGroups",
-			"info",
-			"role",
-			"role_config",
-			"info",
-			"size",
-			"sizes",
-			"size",
-			"Exception",
-			"full",
-			"assert",
-			"get_data",
-			"Service(",
-			"get_data",
-			"details"
+			"pdb"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -921,464 +913,22 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "static/views/cloud.html",
 					"settings":
 					{
-						"buffer_size": 5976,
+						"buffer_size": 979,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2022,
-								2022
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2.0,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5.0,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10.0,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110.0
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublime_auto_complete": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2.0,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "static/js/controller.js",
-					"settings":
-					{
-						"buffer_size": 17218,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								16981,
-								16981
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2.0,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5.0,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10.0,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110.0
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublime_auto_complete": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2.0,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 5107.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"settings":
-					{
-						"buffer_size": 1008,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								860,
-								860
+								181,
+								181
 							]
 						],
 						"settings":
@@ -1592,19 +1142,19 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "app/cloud.py",
+					"buffer": 1,
+					"file": "static/js/controller.js",
 					"settings":
 					{
-						"buffer_size": 11941,
+						"buffer_size": 18660,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								882,
-								882
+								14547,
+								14547
 							]
 						],
 						"settings":
@@ -1615,6 +1165,109 @@
 								"README",
 								"FIXME"
 							],
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
 							"csslint_options":
 							{
 								"adjoining-classes": "warning",
@@ -1676,6 +1329,7 @@
 							[
 							],
 							"pyflakes_ignore_import_*": true,
+							"sublime_auto_complete": true,
 							"sublimelinter": true,
 							"sublimelinter_delay": 2.0,
 							"sublimelinter_disable":
@@ -1698,8 +1352,230 @@
 								"Ruby on Rails": "ruby"
 							},
 							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3960.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"settings":
+					{
+						"buffer_size": 5176,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								5176
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"auto_name": "",
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublime_auto_complete": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1808,6 +1684,42 @@
 		"selected_items":
 		[
 			[
+				"control",
+				"static/js/controller.js"
+			],
+			[
+				"login.html",
+				"static/views/login.html"
+			],
+			[
+				"controller",
+				"static/js/controller.js"
+			],
+			[
+				"index",
+				"static/index.html"
+			],
+			[
+				"controll",
+				"static/js/controller.js"
+			],
+			[
+				"cloud.py",
+				"app/cloud.py"
+			],
+			[
+				"ui-bootstrap-tpls.js",
+				"static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"
+			],
+			[
+				"views",
+				"static/views/login.html"
+			],
+			[
+				"services",
+				"static/js/services.js"
+			],
+			[
 				"cloud.html",
 				"static/views/cloud.html"
 			],
@@ -1820,23 +1732,7 @@
 				"static/js/controller.js"
 			],
 			[
-				"control",
-				"static/js/controller.js"
-			],
-			[
-				"index",
-				"static/index.html"
-			],
-			[
-				"cloud.py",
-				"app/cloud.py"
-			],
-			[
 				"contr",
-				"static/js/controller.js"
-			],
-			[
-				"controller",
 				"static/js/controller.js"
 			],
 			[
@@ -1854,10 +1750,6 @@
 			[
 				"update",
 				"sahli_net/update_sandbox.sh"
-			],
-			[
-				"views",
-				"fastapp/fastapp/views.py"
 			],
 			[
 				"fastinit",
@@ -2212,10 +2104,6 @@
 				"Apps/sahli_fastapp_sbx/tutum/static/views/login.html"
 			],
 			[
-				"controll",
-				"fastapp/fastapp/static/js/app/controllers.js"
-			],
-			[
 				"responses",
 				"fastapp/fastapp/responses.py"
 			],
@@ -2300,24 +2188,12 @@
 				"fastapp/fastapp/static/js/app/controllers.js"
 			],
 			[
-				"services",
-				"fastapp/fastapp/static/js/app/services.js"
-			],
-			[
 				"__in",
 				"fastapp/fastapp/__init__.py"
 			],
 			[
 				"cockpit",
 				"fastapp/fastapp/templates/fastapp/cockpit.html"
-			],
-			[
-				"r",
-				"Apps/sahli_fastapp_20140225/demo/request.py"
-			],
-			[
-				"",
-				"sahli_net/nginx_site.conf"
 			]
 		],
 		"width": 0.0
@@ -2333,7 +2209,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 286.0,
 	"status_bar_visible": true
 }

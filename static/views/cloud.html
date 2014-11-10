@@ -1,108 +1,107 @@
 {% verbatim %}
-    <div>
-        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-        <div class="row">
+<div>
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    <div class="row">
 
-            <div class="col-lg-8">
-                <h3>Filter</h3>
-                <form>
-                    <input ng-model="searchText" type="text" class="form-control" placeholder="...">
-                </form>
-            </div>
-        </div>
-
-        <h3>Services</h3>
-        <div class="row" ng-repeat="service in services | orderByPriority | filter:searchText" >
-            <div class="col-lg-8">
-               <hr> 
-                <h5> <img width="16px" src="img/tutum.png"/> {{ service.data.name }} 
-                    <!--<small ng-class="service.data.state">{{ service.data.state }}</small>-->
-                    <span ng-class="{Running:'label-success', Stopped:'label-primary', Terminated:''}[service.data.state]" class="label">{{ service.data.state }}</span>
-                    <!-- <span class="label">{{ service.data.size }}</span> -->
-                    <span ng-click="toggleSvc(service)" ng-class="{true:'glyphicon-plus', false:'glyphicon-minus', undefined:'glyphicon-minus'}[service.show]" class="glyphicon"></span>
-                </h5>
-                <div class="pull-header pull-right" ng-switch on="service.data.state">
-                    <button type="button" class="btn btn-primary btn-sm" ng-switch-when='Stopped' ng-class="{true: 'disabled', false:''}[starting(service)]" ng-click="start(service)"><img ng-show="starting(service)" src="img/ajax-loader.gif"/>&nbsp;Start</button>
-                    <button type="button" class="btn btn-primary default btn-sm" ng-switch-when='Terminated' ng-class="{true: 'disabled', false:''}[starting(service)]" ng-click="start(service)"><img ng-show="starting(service)" src="img/ajax-loader.gif"/>&nbsp;Start</button>
-                    <button type="button" class="btn btn-warning default btn-sm" ng-switch-when='Running' ng-class="{true: 'disabled', false:''}[stopping(service)]" ng-click="stop(service)"><img ng-show="stopping(service)" src="img/ajax-loader.gif"/>&nbsp;Stop</button>
-                </div> 
-            </div> 
-
-            <div class="col-lg-8" ng-show="!service.show">
-                <span ng-show="service.web_public_dns">
-                    <p><a href="http://{{service.web_public_dns}}">open</a></p>
-                    <p>{{ service.sync_status }}</p>
-                </span>
-
-                <div class="subbox">
-                    <h4>Id</h4>
-                    <p>{{ service.data.id }}</p>
-                </div>
-
-                <div class="subbox">
-                    <h4>Image</h4>
-                    <p>{{ service.data.image }}</p>
-                </div>
-
-                <div class="subbox">
-                    <h4>Links</h4>
-                    <span ng-repeat="link in service.data.linked">
-                        <p>
-                            <a e-disabled buttons="no" href="#" ng-click="" editable-text="link.name">{{ link.name }}</a>
-                            <span>:</span>
-                            <a e-disabled buttons="no" href="#" ng-click="" editable-text="link.to_service">{{ link.to_service }}</a>
-                        </p>
-                    </span>
-                </div>
-
-                <div class="subbox">
-                    <h4>Environment variables <span ng-click="toggle(service)" ng-class="{true:'glyphicon-plus', false:'glyphicon-minus'}[service.env_vars_show]" class="glyphicon"></span></h4>
-                    <span ng-show="!service.data.env_vars.length">No variables</span>
-                    <span ng-show="!service.env_vars_show">
-                        <div ng-repeat="var in service.data.custom_env_vars">
-                            <p>{{ var.key}}: {{ var.value }}</p>
-                        </div>
-                    </span>
-                </div>
-
-                <div class="subbox">
-                   <h4>Instances</h4>
-                   <span ng-show="!service.data.instances.length">No instances</span>
-                    <div>Containers to run: <a href="#" editable-range="service.num_containers" e-min="1" e-max="10" e-step="1">{{ service.num_containers || 'empty' }}</a></div>  
-                   <span ng-repeat="instance in service.data.instances">
-                    <h5>DNS</h5>
-                    <p>{{instance.dns}}</p>
-                    <h5>Ports</h5>
-                    <span ng-repeat="port in instance.ports">
-                        <p>{{port.outer}} > {{port.inner}} <span><button type="button" class="btn btn-primary btn-xs" clip-copy="'asdfasdf'" clip-click="doSomething()">Copy connect command to clipboard</button></span></p>
-                    </span>
-                </span>
-                </div>
-                <div class="subbox" ng-controller="ConfigurationCtrl">
-                    <h4>Configuration</h4>
-                    <p>
-                        <a href="#" editable-radiolist="service.terminate" e-ng-options="s.value as s.text for s in terminate_config" onaftersave="updateTerminateConfig(service)">
-                            {{ showTerminateConfig(service) }}
-                        </a>
-                    </p>
-                    <p>
-                        <a href="#" editable-checkbox="service.role_config" e-title="Full Access Role?" onaftersave="updateTerminateConfig(service)">
-                        {{ service.role_config && "Full Access Role" || "No role" }}
-                      </a>
-                    </p>
-                    <div ng-controller="HookCtrl">
-                        <p>
-                            <span>Hook on start: </span><a href="#" editable-text="service.hook_start" onaftersave="updateTerminateConfig(service)">{{ service.hook_start || 'empty' }}</a>
-                            <button type="button" ng-class="{true: 'disabled', false:''}[start_hook_running(service)]" class="btn btn-primary btn-xs" ng-click="call_hook(service, 'start')">
-                                <img ng-show="start_hook_running(service)" src="img/ajax-loader.gif"/>&nbsp;Test hook</button>
-                            </p>
-                            <p>
-                                <span>Hook on stop: </span><a href="#" editable-text="service.hook_stop" onaftersave="updateTerminateConfig(service)">{{ service.hook_stop || 'empty' }}</a>
-                                <button type="button" ng-class="{true: 'disabled', false:''}[stop_hook_running(service)]" class="btn btn-primary btn-xs" ng-click="call_hook(service, 'stop')">
-                                    <img ng-show="stop_hook_running(service)" src="img/ajax-loader.gif"/>&nbsp;Test hook</button>
-                                </p>
-                    </div>
-                </div>
+        <div class="col-lg-8">
+            <h3>Filter</h3>
+            <form>
+                <input ng-model="searchText" type="text" class="form-control" placeholder="...">
+            </form>
         </div>
     </div>
-{% endverbatim %}
+
+    <h3>Services</h3>
+    <div class="row" ng-repeat="service in services | orderByPriority | filter:searchText" >
+        <div class="col-lg-8">
+         <hr> 
+         <h5> <img width="16px" src="img/tutum.png"/> {{ service.data.name }} 
+            <span ng-class="{Running:'label-success', Stopped:'label-primary', Terminated:''}[service.data.state]" class="label">{{ service.data.state }}</span>
+            <!-- <span class="label">{{ service.data.size }}</span> -->
+            <span ng-click="toggleSvc(service)" ng-class="{true:'glyphicon-plus', false:'glyphicon-minus', undefined:'glyphicon-minus'}[service.show]" class="glyphicon"></span>
+        </h5>
+        <div class="pull-header pull-right" ng-switch on="service.data.state">
+            <button type="button" class="btn btn-primary btn-sm" ng-switch-when='Stopped' ng-class="{true: 'disabled', false:''}[starting(service)]" ng-click="start(service)"><img ng-show="starting(service)" src="img/ajax-loader.gif"/>&nbsp;Start</button>
+            <button type="button" class="btn btn-primary default btn-sm" ng-switch-when='Terminated' ng-class="{true: 'disabled', false:''}[starting(service)]" ng-click="start(service)"><img ng-show="starting(service)" src="img/ajax-loader.gif"/>&nbsp;Start</button>
+            <button type="button" class="btn btn-warning default btn-sm" ng-switch-when='Running' ng-class="{true: 'disabled', false:''}[stopping(service)]" ng-click="stop(service)"><img ng-show="stopping(service)" src="img/ajax-loader.gif"/>&nbsp;Stop</button>
+        </div> 
+    </div> 
+
+    <div class="col-lg-8" ng-show="!service.show">
+        <span ng-show="service.web_public_dns">
+            <p><a href="http://{{service.web_public_dns}}">open</a></p>
+            <p>{{ service.sync_status }}</p>
+        </span>
+
+        <div class="subbox">
+            <h4>Id</h4>
+            <p>{{ service.data.id }}</p>
+        </div>
+
+        <div class="subbox">
+            <h4>Image</h4>
+            <p>{{ service.data.image }}</p>
+        </div>
+
+        <div class="subbox">
+            <h4>Links</h4>
+            <span ng-repeat="link in service.data.linked">
+                <p>
+                    <a e-disabled buttons="no" href="#" ng-click="" editable-text="link.name">{{ link.name }}</a>
+                    <span>:</span>
+                    <a e-disabled buttons="no" href="#" ng-click="" editable-text="link.to_service">{{ link.to_service }}</a>
+                </p>
+            </span>
+        </div>
+
+        <div class="subbox">
+            <h4>Environment variables <span ng-click="toggle(service)" ng-class="{true:'glyphicon-plus', false:'glyphicon-minus'}[service.env_vars_show]" class="glyphicon"></span></h4>
+            <span ng-show="!service.data.env_vars.length">No variables</span>
+            <span ng-show="!service.env_vars_show">
+                <div ng-repeat="var in service.data.custom_env_vars">
+                    <p>{{ var.key}}: {{ var.value }}</p>
+                </div>
+            </span>
+        </div>
+
+        <div class="subbox">
+         <h4>Instances</h4>
+         <span ng-show="!service.data.instances.length">No instances</span>
+         <div>Containers to run: <a href="#" editable-range="service.num_containers" e-min="1" e-max="10" e-step="1">{{ service.num_containers || 'empty' }}</a></div>  
+         <span ng-repeat="instance in service.data.instances">
+            <h5>DNS</h5>
+            <p>{{instance.dns}}</p>
+            <h5>Ports</h5>
+            <span ng-repeat="port in instance.ports">
+                <p>{{port.outer}} > {{port.inner}} <span><button type="button" class="btn btn-primary btn-xs" clip-copy="'asdfasdf'" clip-click="doSomething()">Copy connect command to clipboard</button></span></p>
+            </span>
+        </span>
+    </div>
+    <div class="subbox" ng-controller="ConfigurationCtrl">
+        <h4>Configuration</h4>
+        <p>
+            <a href="#" editable-radiolist="service.terminate" e-ng-options="s.value as s.text for s in terminate_config" onaftersave="updateTerminateConfig(service)">
+                {{ showTerminateConfig(service) }}
+            </a>
+        </p>
+        <p>
+            <a href="#" editable-checkbox="service.role_config" e-title="Full Access Role?" onaftersave="updateTerminateConfig(service)">
+                {{ service.role_config && "Full Access Role" || "No role" }}
+            </a>
+        </p>
+        <div ng-controller="HookCtrl">
+            <p>
+                <span>Hook on start: </span><a href="#" editable-text="service.hook_start" onaftersave="updateTerminateConfig(service)">{{ service.hook_start || 'empty' }}</a>
+                <button type="button" ng-class="{true: 'disabled', false:''}[start_hook_running(service)]" class="btn btn-primary btn-xs" ng-click="call_hook(service, 'start')">
+                    <img ng-show="start_hook_running(service)" src="img/ajax-loader.gif"/>&nbsp;Test hook</button> {{ service._hook_start_result }}
+                </p>
+                <p>
+                    <span>Hook on stop: </span><a href="#" editable-text="service.hook_stop" onaftersave="updateTerminateConfig(service)">{{ service.hook_stop || 'empty' }}</a>
+                    <button type="button" ng-class="{true: 'disabled', false:''}[stop_hook_running(service)]" class="btn btn-primary btn-xs" ng-click="call_hook(service, 'stop')">
+                        <img ng-show="stop_hook_running(service)" src="img/ajax-loader.gif"/>&nbsp;Test hook</button> <span>{{ service._hook_stop_result }}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endverbatim %}
