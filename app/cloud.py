@@ -80,7 +80,7 @@ def func(self):
 					details = Bunch(json.loads(details_api))
 
 					all_env_vars, custom_env_vars = self._custom_variables(details.container_envvars)
-					info(rid, details.__dict__.keys())
+					#info(rid, details.__dict__.keys())
 					app_dict = {'name': app.name, 
 								'id': app.uuid,
 								'uri': app.resource_uri,
@@ -123,8 +123,8 @@ def func(self):
 				# change linked.to_service to app name
 				ids = self._custom_link_data(ids)
 			
-			info(rid, "IDS")	
-			info(rid, str(ids))
+			#info(rid, "IDS")	
+			#info(rid, str(ids))
 			return ids
 		
 		def _call(self, uri, method, data=None, get_cached=False):

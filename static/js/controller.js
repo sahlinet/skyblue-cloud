@@ -58,7 +58,7 @@ myApp.factory('tutumService', ['$rootScope', '$http', '$q', 'hookService', funct
             { value: "XL", text: "XL" }
             ];
         },
-        'update': function(name) {
+        'update': function() {
             var url = '/fastapp/base/skyblue-cloud/exec/firebase_get_data_external/?json=&async&shared_key=30cd22e3-40c0-48c5-b50f-01f8ffd9100c&user_id='+$rootScope.user.uid;
             //url=url+"&name="+name;
             return hookService.call_hook(url, {});
@@ -332,29 +332,35 @@ myApp.controller('ConfigurationCtrl',  function($scope, $filter) {
 myApp.factory('hookService', ['$rootScope', '$http', '$q', '$timeout', '$location', function($rootScope, $http, $q, $timeout, $location) {
     $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
     return {
-        'call_hook': function(service, url, data) {
+        'call_hook': function(url, request_data) {
 
-
-            call = function(url, data) {
+            console.log(request_data);
+            call = function(url, request_data) {
                 //$scope.alerts.push({ type: 'success', msg: 'Hook on start initiated' } );
                 deferred = $q.defer();
 
-                if ($location.host() == "localhost") {
-                    url = "http://localhost:8000/fastapp/base/skyblue-cloud/exec/proxy_for_hooks/?json&async";
-                }
-                run = function(url, data) {
+                console.log(request_data);
 
-                    $http({
-                        method: 'POST',
-                        url: url,
-                        data: $.param(data)
-                    }).success(function(data, status, headers, config) {
+                /*if ($location.host() == "localhost") {
+                    url = "http://localhost:8000/fastapp/base/skyblue-cloud/exec/proxy_for_hooks/?json&async";
+                }*/
+                run = function(url, request_data) {
+                    console.log(request_data);
+
+                    /*if (angular.isUndefined(data)) {
+                        data = data;
+                    } else {
+                        data = $.param(data);
+
+                    }*/
+
+                    $http.post(url, $.param(request_data)).success(function(data, status, headers, config) {
                         if (data.status != "RUNNING") {
                             deferred.resolve(status);
                         } else {
                             url = data.url;
                             $timeout(function() {
-                                run(url, data);
+                                run(url, request_data);
                             }, 3000);
                         }
                     }).error(function(data, status, headers, config) {
@@ -365,11 +371,11 @@ myApp.factory('hookService', ['$rootScope', '$http', '$q', '$timeout', '$locatio
                     });
                 };
 
-                run(url, data);
+                run(url, request_data);
                 return deferred.promise;
             };
 
-            return call(url, data);
+            return call(url, request_data);
         }
     };
 }]);
@@ -403,7 +409,6 @@ myApp.controller("HookCtrl", ["$scope", "hookService", "$rootScope", "$timeout",
         }
         data = service.data.details.link_variables;
         angular.forEach(service.data.custom_env_vars, function(value, key) {
-            console.log(value, key);
             data[value['key']] = value['value'];
         });
 
@@ -411,7 +416,9 @@ myApp.controller("HookCtrl", ["$scope", "hookService", "$rootScope", "$timeout",
         data['id'] = service.data.id;
         data['NAME'] = service.data.name;
 
-        hookService.call_hook(url, data).then(function(result, status) {
+        request_data = data;
+
+        hookService.call_hook(url, request_data).then(function(result, status) {
             $scope._hook_stop(service, mode);
             $scope.alerts.push({ type: 'success', msg: 'Hook '+url+' call successfully: '+result+'' } );
             console.log(result);
