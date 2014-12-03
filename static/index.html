@@ -85,6 +85,7 @@
                 <li><a class="nav-link" href="documentation.html">Documentation</a></li>
                 <li><a ng-class="{true:'current', false:''}[current('cloud')]" ng-show="user" class="nav-link" href="#/cloud">Cloud</a></li>
                 <li ng-show="user"><button type="button" ng-class="{true: 'disabled', false:''}[running()]" class="btn btn-warning navbar-btn btn-margin-right btn-more-margin-left" ng-click="sync()"><img ng-show="running()" src="img/ajax-loader.gif"/>&nbsp;Sync</button></li>
+                <li ng-show="user"><button class="btn btn-warning navbar-btn btn-margin-right btn-more-margin-left" ng-click="go('/profile')">&nbsp;Profile</button></li>
                 <li ng-show="!user"><button type="button" class="btn btn-warning navbar-btn btn-margin-left" ng-click="goToLogin()">Login</button></li>
                 <li ng-show="user"><button type="button" class="btn btn-warning navbar-btn btn-margin-left" ng-click="logout()">Logout</button></li>
               </ul>

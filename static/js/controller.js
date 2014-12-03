@@ -7,6 +7,8 @@ config(function($routeProvider, $locationProvider) {
         {templateUrl: "views/cloud.html", controller: "cloudCtrl"}).
     when("/login",
         {templateUrl: "views/login.html", controller: "loginCtrl"}).
+    when("/profile",
+        {templateUrl: "views/profile.html", controller: "profileCtrl"}).
     otherwise({redirectTo: "/start"});
 }).
 run(function($rootScope, $location) {
@@ -145,6 +147,10 @@ myApp.controller("navigationCtrl", ["$rootScope", "$scope", "$location", "loginS
         $location.path("/login/");
     };
 
+    $scope.go = function ( path ) {
+        $location.path( path );
+    };
+
     // initiate logout action
     $scope.logout = function() {
         console.log("logout");
@@ -155,6 +161,22 @@ myApp.controller("navigationCtrl", ["$rootScope", "$scope", "$location", "loginS
     };
 }]);
 
+myApp.controller("profileCtrl", ["$scope", "$firebase", "$rootScope", function($scope, $firebase, $rootScope) {
+
+    console.log("profileCtrl");
+
+    var profileRef = new Firebase(window.firebase_url+"/users/"+$rootScope.user.uid+"/config");
+
+    $scope.config = $firebase(profileRef);
+    console.log($scope.config);
+
+    $scope.save = function() {
+        console.log("save");
+        console.log($scope.config);
+        $scope.config.$save();
+    };
+
+}]);
 myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumService", "hookService", function($scope, $firebase, $rootScope, tutumService, hookService, $filter) {
     console.log("Start cloudCtrl");
     $scope.sync_running = false;
@@ -172,8 +194,6 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
     $scope.closeAlert = function(index) {
         $scope.alerts.splice(index, 1);
     };
-
-
 
     $rootScope.$on("sync", function(event) {
         $rootScope.sync_running = true;
@@ -345,7 +365,7 @@ myApp.factory('hookService', ['$rootScope', '$http', '$q', '$timeout', '$locatio
                     url = "http://localhost:8000/fastapp/base/skyblue-cloud/exec/proxy_for_hooks/?json&async";
                 }*/
                 run = function(url, request_data) {
-                    console.log(request_data);
+                    //console.log(request_data);
 
                     /*if (angular.isUndefined(data)) {
                         data = data;

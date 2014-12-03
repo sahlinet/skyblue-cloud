@@ -1,0 +1,20 @@
+{% verbatim %}
+<div>
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    <div class="row">
+        <div class="col-lg-8">
+            <h3>Profile</h3>
+            <h4>Tutum</h4>
+            <h5>User</h5>
+            <form>
+                <input ng-model="config.tutum.api.user" type="text" class="form-control" placeholder="...">
+            </form>
+            <h5>API Key</h5>
+            <form>
+                <input ng-model="config.tutum.api.key" type="text" class="form-control" placeholder="...">
+            </form>
+            <button type="button" class="btn btn-warning navbar-btn btn-margin-left" ng-click="save()">Save</button>
+        </div>
+    </div>
+</div>
+{% endverbatim %}

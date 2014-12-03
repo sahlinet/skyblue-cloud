@@ -29,8 +29,9 @@ def func(self):
 	
 	class TutumService(object):
 		
-		def __init__(self, settings):
-			self.settings = settings
+		def __init__(self, api_user, api_key):
+			self.api_user = api_user
+			self.api_key = api_key
 		
 		def _custom_link_data(self, data):
 			
@@ -120,8 +121,6 @@ def func(self):
 
 						# generate persistent configuration 
 						for port in container_data_json['container_ports']:
-							debug(rid, "theports")
-							debug(rid, port)
 							portc = {
 								'inner_port': port['inner_port'],
 								'published': port['published'],
@@ -150,7 +149,7 @@ def func(self):
 			base_url = "https://dashboard.tutum.co/"
 
 			headers = {
-				'Authorization': "ApiKey %s:%s" % (self.settings.TUTUM_USER, self.settings.TUTUM_APIKEY)
+				'Authorization': "ApiKey %s:%s" % (self.api_user, self.api_key)
 			}
 			if data:
 				headers.update({'Content-Type': 'application/json'}) 
@@ -246,6 +245,8 @@ def func(self):
 		service_url = "/users/%s/services/%s"
 		services_url = "/users/%s/services/"
 		services_url_new = "/users/%s/services/%s/"
+
+		config_url = "/users/%s/config/"
 		
 		def __init__(self, user, settings):
 			self.user = user
@@ -273,10 +274,13 @@ def func(self):
 		def save_service(self, service):
 			data = self.app.put(self.services_url_new % (self.user, service.name), "data", service.data)
 			return data
+
+		def get_config(self):
+			return self.app.get(self.config_url % self.user, None)
 			
 	
 	def get_tutum_service():
-		return TutumService(self.settings)
+		return TutumService(api_user, api_key)
 	
 	class Service(object):
 		
@@ -381,10 +385,14 @@ def func(self):
 	
 	# sync
 	else:
-		#service = firebase.get_service(self.GET['name'])
-		tutum_service = TutumService(self.settings)
-		# get data from tutum
+		# get user_config
+		user_config = Bunch(firebase.get_config())
+		api_user = user_config.tutum['api']['user']
+		api_key = user_config.tutum['api']['key']
+		debug(rid, "Start sync for user %s" % firebase_uid)
+		tutum_service = TutumService(user_config.tutum['api']['user'], user_config.tutum['api']['key'])
 
+		# get data from tutum
 		tutum_data = tutum_service.get_data(name=None)
 		tutum_names = [ a['name'] for a in tutum_data ]
 		
