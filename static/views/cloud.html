@@ -65,15 +65,41 @@
         </div>
 
         <div class="subbox">
+            <h4>Tags</h4>
+            <span ng-show="!service.data.tags">No tags</span>
+            <span>
+                <div ng-repeat="tag in service.data.tags">
+                    <p>{{ tag.name }}</p>
+                </div>
+            </span>
+        </div>
+
+        <div class="subbox">
+            <h4>Ports</h4>
+            <span ng-show="!service.data.ports.length">No ports</span>
+            <span>
+                <div ng-repeat="port in service.data.ports">
+                    <p>
+                        <span ng-show="port.outer_port">{{ port.outer_port }}</span>
+                        <span ng-show="!port.outer_port">dynamic</span>
+                         -> {{ port.inner_port }} <span ng-show="port.published">published</span>
+                     </p>
+                </div>
+            </span>
+        </div>
+
+        <div class="subbox">
          <h4>Instances</h4>
          <span ng-show="!service.data.instances.length">No instances</span>
          <div>Containers to run: <a href="#" editable-range="service.num_containers" e-min="1" e-max="10" e-step="1">{{ service.num_containers || 'empty' }}</a></div>  
          <span ng-repeat="instance in service.data.instances">
-            <h5>DNS</h5>
-            <p>{{instance.dns}}</p>
-            <h5>Ports</h5>
-            <span ng-repeat="port in instance.ports">
-                <p>{{port.outer}} > {{port.inner}} <span><button type="button" class="btn btn-primary btn-xs" clip-copy="'asdfasdf'" clip-click="doSomething()">Copy connect command to clipboard</button></span></p>
+            <h5>{{instance.unique_name}}</h5>
+            <span ng-repeat="port in instance.container_ports">
+                <h6>Port {{port.inner_port}}</h6>
+                <p><span>{{ port.endpoint_uri}}</span></p>
+                <span ng-show="port.outer_port">{{port.outer_port}}</span>
+                        <span ng-show="!port.outer_port">{{port.inner_port}}</span>
+                         -> {{ port.inner_port }} <span ng-show="port.published">published</span>
             </span>
         </span>
     </div>

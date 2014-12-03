@@ -1,4 +1,5 @@
 import sys
+import re
 thismodule = sys.modules[__name__]
 
 import json
@@ -51,7 +52,6 @@ def func(self):
 			return data
 		
 		def _custom_variables(self, data):
-			import re
 			data_cleaned = []
 			try:
 				for variable in data:
@@ -80,13 +80,18 @@ def func(self):
 					details = Bunch(json.loads(details_api))
 
 					all_env_vars, custom_env_vars = self._custom_variables(details.container_envvars)
-					#info(rid, details.__dict__.keys())
+					tags = []
+					for tag in details.tags:
+								tag.pop("resource_uri")
+								tags.append(tag)
+
 					app_dict = {'name': app.name, 
 								'id': app.uuid,
 								'uri': app.resource_uri,
 								'all_env_vars': all_env_vars,
 								'custom_env_vars': custom_env_vars,
 								'state': app.state,
+								'tags': tags,
 								
 								# links
 								'linked': details.linked_to_service,
@@ -101,38 +106,44 @@ def func(self):
 					status, text = self._call("/api/v1/service/"+app.uuid+"/", "GET", get_cached=True)
 					
 					conts = []
+					ports = []
 					status_code, containers = self._call("/api/v1/service/"+app.uuid+"/", "GET", get_cached=True)
 					containers = Bunch(json.loads(containers))
 					app_dict['env_vars'] = json.loads(text)['container_envvars']
-					#container_size = containers['container_size']
 
-					#for container in containers:
-						#container = Bunch(json.loads(container))
-						#ports = []
-						#for port in container.container_ports:
-						#	ports.append({'inner': port['inner_port'], 'outer': port['outer_port']})
-						#conts.append({'name': container.name, 
-						#				'id': container.uuid, 
-						#			  'dns': container.public_dns,
-						#			  'ports': ports,
-						#			  })
+					for container in details.containers:
+						status_code, container_data = self._call(container, "GET")
+						container_data_json = json.loads(container_data)
+
+						# running port configuration
+						conts.append(container_data_json)
+
+						# generate persistent configuration 
+						for port in container_data_json['container_ports']:
+							debug(rid, "theports")
+							debug(rid, port)
+							portc = {
+								'inner_port': port['inner_port'],
+								'published': port['published'],
+								'protocol': port['protocol']
+							}
+							if port.has_key('outer_port'):
+								portc['outer_port'] = port['outer_port']
+							ports.append(portc)
+
 					app_dict.update({'containers': conts})
+					app_dict.update({'ports': ports})
 					app_dict.update({'image': containers.image_name})
-					#app_dict.update({'size': container_size})
 					ids.append(app_dict)
 				# change linked.to_service to app name
 				ids = self._custom_link_data(ids)
 			
-			#info(rid, "IDS")	
-			#info(rid, str(ids))
 			return ids
 		
 		def _call(self, uri, method, data=None, get_cached=False):
 			if method == "GET" and get_cached:
-				#debug(rid, "get from cache")
 				cached = lcache.get(uri, None)
 				if cached is not None:
-					debug(rid, "found in cached")
 					return cached[0], cached[1]
 			
 			start = int(round(time.time() * 1000))
@@ -156,7 +167,6 @@ def func(self):
 			debug(rid, (str(end-start), "_call", uri, method, r.status_code))
 			if method == "GET" and get_cached:
 				if not cached:
-					#debug(rid, "put to cache")
 					lcache.update({uri: [r.status_code, r.text]})
 			return r.status_code, r.text
 		
@@ -194,10 +204,13 @@ def func(self):
 					"name": service.name,
 					"target_num_containers": 1,
 					"container_envvars": service.custom_env_vars,
-					#"container_size": service.size,
 					"linked_to_service": service.linked,
-					"roles": service.roles
+					"roles": service.roles,
+					"container_ports": service.container_ports,
+					"tags": service.tags
 				}
+				info(rid, "START DATA")
+				info(rid, data)
 				status, response = self._call("/api/v1/service/", "POST",
 											  data)
 				
@@ -209,8 +222,7 @@ def func(self):
 				service.uri = json.loads(response)['resource_uri']
 				service.id = json.loads(response)['uuid']
 				info(rid, "service created with uri %s" % service.uri)
-				
-					
+
 				uuid = json.loads(response)['uuid']
 				result = self._change_state(service, uuid, "start", "Running")
 				
@@ -278,7 +290,8 @@ def func(self):
 			self.custom_env_vars = kwargs['data'].get('custom_env_vars', [])
 			self.uri = kwargs['data'].get('uri', "uri1")
 			self.linked = kwargs['data'].get('linked', [])
-			self.size = kwargs['data'].get('size', "XS")
+			self.container_ports = kwargs['data'].get('ports', [])
+			self.tags = kwargs['data'].get('tags', [])
 			
 			# full
 			self.full = kwargs['data'].get('full', None)
@@ -298,7 +311,6 @@ def func(self):
 				'name': self.name,
 				'id': self.id,
 				'uri': self.uri,
-				'size': self.size,
 				'image': self.image,
 				'state': self.state,
 				'linked': self.linked,
@@ -306,7 +318,8 @@ def func(self):
 				'full': self.full,
 				'custom_env_vars': self.custom_env_vars,
 				'env_vars': self.env_vars,
-				#'instances': []
+				'ports': self.container_ports,
+				'tags': self.tags,
 			}
 		
 		def get_linked(self):
@@ -326,7 +339,8 @@ def func(self):
 			return self.tutum_service.stop(self)
 		
 		def clear_state(self, state="Terminated"):
-			self.id = None
+			if state=="Terminated":
+				self.id = None
 			self.state = state
 		
 		def terminate(self):
@@ -337,9 +351,6 @@ def func(self):
 		
 		def __str__(self):
 			return self.__dict__
-		
-	
-
 			
 	# execute an action
 	firebase = Firebase(firebase_uid, self.settings)
@@ -349,8 +360,6 @@ def func(self):
 		service = firebase.get_service(self.POST['service_name'])
 		action = self.POST['action']
 		
-		
-		#return service
 		if action == "start":
 			result, service_new = service.start()
 			if result[0] not in [200, 201, 202]:
@@ -358,7 +367,7 @@ def func(self):
 			
 			service_new.state = "Running"
 			service_new.id = service_new.id
-			r = firebase.save_service(service_new)
+			firebase.save_service(service_new)
 			
 			result = service_new.id
 			
@@ -377,14 +386,10 @@ def func(self):
 		# get data from tutum
 
 		tutum_data = tutum_service.get_data(name=None)
-		#info(rid, "nowdata")
-		#info(rid, tutum_data)
 		tutum_names = [ a['name'] for a in tutum_data ]
 		
 		services = firebase.get_services()
-		#debug(rid, services.keys())
 		for service in services:
-			#debug(rid, service)
 			
 			if service not in tutum_names:
 				service_obj = firebase.get_service(service)
@@ -397,13 +402,10 @@ def func(self):
 			for service_data in tutum_data:
 				if not service_data['state'] == "Terminated":
 					logms("save "+service_data['name'])
-					assert service_data.has_key('details')
-					#assert len(service_data['details']) == 2, Exception(str(service_data['details']))
 					app.put('/users/%s/services/%s/' % (firebase_uid, service_data['name']), "data", 
 							{'name': service_data['name'],
 							 'id': service_data['id'],
-							 'uri': service_data.get('uri', "uri2"),
-							 #'size': service_data.get('size', "M"),
+							 'uri': service_data.get('uri'),
 							 'image': service_data['image'],
 							 'state': service_data['state'],
 							 'linked': service_data['linked'],
@@ -411,9 +413,13 @@ def func(self):
 							 'full': service_data['full'],
 							 'custom_env_vars': service_data['custom_env_vars'],
 							 'env_vars': service_data['env_vars'],
-							 'instances': service_data['containers']})
+							 'instances': service_data['containers'],
+							 'ports': service_data['ports'],
+							 'tags': service_data['tags']})
 					logms("saved "+service_data['name'])
-		result = tutum_names#, services_name
+		result = tutum_names
 		
 	lcache = {}
+
+	info(rid, "done")
 	return self.responses.JSONResponse(json.dumps(result))
