@@ -127,7 +127,8 @@ def func(self):
 								'protocol': port['protocol']
 							}
 							if port.has_key('outer_port'):
-								portc['outer_port'] = port['outer_port']
+								if port['outer_port'] == port['inner_port']:
+									portc['outer_port'] = port['outer_port']
 							ports.append(portc)
 
 					app_dict.update({'containers': conts})
@@ -163,7 +164,7 @@ def func(self):
 				r = requests.delete(base_url+uri, headers=headers)
 				
 			end = int(round(time.time() * 1000))
-			debug(rid, (str(end-start), "_call", uri, method, r.status_code))
+			debug(rid, (str(end-start), "_call", uri, method, r.status_code, r.text))
 			if method == "GET" and get_cached:
 				if not cached:
 					lcache.update({uri: [r.status_code, r.text]})
@@ -302,7 +303,8 @@ def func(self):
 			self.details = kwargs['data'].get('details', None)
 			
 			self.terminate = kwargs['terminate']
-			if kwargs.has_key('role_config'):
+			role_config = kwargs.get('role_config', False)
+			if role_config:
 				self.roles = ["global"]
 			else:
 				self.roles = []
@@ -358,6 +360,10 @@ def func(self):
 			
 	# execute an action
 	firebase = Firebase(firebase_uid, self.settings)
+	# get user_config
+	user_config = Bunch(firebase.get_config())
+	api_user = user_config.tutum['api']['user']
+	api_key = user_config.tutum['api']['key']
 	
 	logms(4)
 	if self.POST.has_key('action'):
@@ -385,10 +391,7 @@ def func(self):
 	
 	# sync
 	else:
-		# get user_config
-		user_config = Bunch(firebase.get_config())
-		api_user = user_config.tutum['api']['user']
-		api_key = user_config.tutum['api']['key']
+
 		debug(rid, "Start sync for user %s" % firebase_uid)
 		tutum_service = TutumService(user_config.tutum['api']['user'], user_config.tutum['api']['key'])
 

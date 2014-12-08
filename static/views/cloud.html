@@ -57,9 +57,16 @@
         <div class="subbox">
             <h4>Environment variables <span ng-click="toggle(service)" ng-class="{true:'glyphicon-plus', false:'glyphicon-minus'}[service.env_vars_show]" class="glyphicon"></span></h4>
             <span ng-show="!service.data.env_vars.length">No variables</span>
+            <p>
+            <button type="button" class="btn btn-warning btn-xs btn-margin-right" ng-click="newVar(service)">New</button>
+            </p>
             <span ng-show="!service.env_vars_show">
                 <div ng-repeat="var in service.data.custom_env_vars">
-                    <p>{{ var.key}}: {{ var.value }}</p>
+                    <p>
+                        <a href="#" editable-text="var.key" onaftersave="updateTerminateConfig(service)">{{ var.key }}</a>
+                        <a href="#" editable-text="var.value" onaftersave="updateTerminateConfig(service)">{{ var.value }}</a>
+                        <button type="button" class="btn btn-warning btn-xs" ng-click="delVar(service, var, $index)">Delete</button>
+                    </p>
                 </div>
             </span>
         </div>
@@ -82,7 +89,10 @@
                     <p>
                         <span ng-show="port.outer_port">{{ port.outer_port }}</span>
                         <span ng-show="!port.outer_port">dynamic</span>
-                         -> {{ port.inner_port }} <span ng-show="port.published">published</span>
+                         -> {{ port.inner_port }} 
+                         <a href="#" editable-checkbox="port.published" e-title="Published?" onaftersave="updateTerminateConfig(service)">
+                            {{ port.published && "Published" || "Not published" }}
+                        </a>  
                      </p>
                 </div>
             </span>

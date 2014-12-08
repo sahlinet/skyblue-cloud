@@ -302,6 +302,18 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
         return (!typeof service._stopping === "undefined" || service._stopping);
     };
 
+    $scope.newVar = function(service) {
+        service.data.custom_env_vars.push({'key': "new", 'value': "new"});
+        $scope.services.$save(service.data.name);
+    };
+    $scope.delVar = function(service, variable, index) {
+        console.log(service);
+        console.log(variable);
+        console.log(index);
+        service.data.custom_env_vars.splice(index, 1);
+        $scope.services.$save(service.data.name);
+    };
+
 }]);
 
 myApp.controller('SizeCtrl',  ["$scope", "$filter", "tutumService", function($scope, $filter, tutumService) {
@@ -346,7 +358,6 @@ myApp.controller('ConfigurationCtrl',  function($scope, $filter) {
         $scope.services.$save(service.data.name);
     };
 
-    $scope.full_role = {"full": true};
 });
 
 myApp.factory('hookService', ['$rootScope', '$http', '$q', '$timeout', '$location', function($rootScope, $http, $q, $timeout, $location) {

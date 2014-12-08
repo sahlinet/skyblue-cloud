@@ -191,25 +191,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "static/js/controller.js",
-			"settings":
-			{
-				"buffer_size": 16041,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "Remote:   origin @ ssh://git@git.sahli.net:10022/philipsahli/skyblue-cloud.git\nLocal:    master ~/Dropbox/Repositories/skyblue-cloud\nHead:     c84a1c1 add raven for sentry in javascript\n\n\nChanges:\n	Modified   skyblue-cloud.sublime-workspace\n\n\n# Movement:\n#    r = refresh status\n#    1-5 = jump to section\n#    n = next item, N = next section\n#    p = previous item, P = previous section\n#\n# Staging:\n#    s = stage file/section, S = stage all unstaged files\n#    ctrl+shift+s = stage all unstaged and untracked files\n#    u = unstage file/section, U = unstage all files\n#    backspace = discard file/section, shift+backspace = discard everything\n#\n# Commit:\n#    c = commit, C = commit -a (add unstaged)\n#    ctrl+shift+c = commit --amend (amend previous commit)\n#\n# Other:\n#    i = ignore file, I = ignore pattern\n#    enter = open file\n#    d = view diff\n#\n# Stashes:\n#    a = apply stash, A = pop stash\n#    z = create stash, Z = create stash including untracked files\n#    backspace = discard stash",
-			"settings":
-			{
-				"buffer_size": 1003,
-				"line_ending": "Unix",
-				"name": "*git-status*: skyblue-cloud",
-				"read_only": true,
-				"scratch": true
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -218,24 +199,28 @@
 		"selected_items":
 		[
 			[
+				"commit",
+				"Git: Commit"
+			],
+			[
 				"status",
 				"Git: Status"
 			],
 			[
-				"push",
-				"Git: Push Current Branch"
+				":0",
+				":0 - BOF"
 			],
 			[
 				":w",
 				":w - Save"
 			],
 			[
-				"inde",
-				"Indentation: Reindent Lines"
+				"push",
+				"Git: Push Current Branch"
 			],
 			[
-				":0",
-				":0 - BOF"
+				"inde",
+				"Indentation: Reindent Lines"
 			],
 			[
 				"release",
@@ -554,10 +539,6 @@
 				"Legit: Publish"
 			],
 			[
-				"commit",
-				"Git: Commit"
-			],
-			[
 				"reinde",
 				"Indentation: Reindent Lines"
 			],
@@ -602,7 +583,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 602.0
+		"width": 485.0
 	},
 	"console":
 	{
@@ -620,14 +601,15 @@
 	"file_history":
 	[
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/controller.js",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/services.js",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/index.html",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/app/cloud.py",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/profile.html",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/cloud.html",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/app/cloud.py",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/skyblue_cloud.egg-info/PKG-INFO",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/login.html",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/welcome.html",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/services.js",
 		"/Users/fatrix/Dropbox/Repositories/docker-postgresql-test/startup_postgres.sh",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/.gitignore",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/app/tests.py",
@@ -745,8 +727,7 @@
 		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/views.py",
 		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/executors/remote.py",
 		"/Users/fatrix/Dropbox/Repositories/sahli.net/app/sahli_net/envs/sandbox.py",
-		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/models.py",
-		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/utils.py"
+		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/models.py"
 	],
 	"find":
 	{
@@ -764,6 +745,50 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"TutumService",
+			"Firebase",
+			"firebase",
+			"get_services",
+			"get_service",
+			"Bunch",
+			"Firebase",
+			"self.get",
+			"TutumService",
+			"$save",
+			"firebase",
+			"navigationCtr",
+			"role",
+			"info(",
+			"debug",
+			"ports",
+			"tags",
+			"link",
+			"sleep",
+			"details",
+			"size",
+			"get_service",
+			"Firebase",
+			"TutumService",
+			"clear_state",
+			"tutum service run --tag planet --tag int -e POSTGRES_PASS=$PASSWORD -p 5432 --name planet-int-db tutum/postgresql:latest",
+			"clear_state",
+			"ports",
+			"container_ports",
+			"Service",
+			"self.data",
+			"data",
+			"clear_state",
+			"cont",
+			"containers",
+			"found in cached",
+			"containers",
+			"get_data",
+			"instances",
+			"clear_state",
+			"delete",
+			"v2",
+			"start",
+			"else",
 			"info(rid",
 			"info(self.rid",
 			"$http",
@@ -847,51 +872,7 @@
 			"web_public_dns",
 			"tutum.user",
 			"tutum",
-			"log",
-			"raise e",
-			"raise",
-			"Firebase(",
-			"Firebase(/",
-			"ref",
-			"firebase",
-			"skyblue-cloud",
-			"firebase",
-			"set_perms",
-			"create",
-			"rabbit",
-			"INFO",
-			"fastapp",
-			"remote",
-			"publish",
-			"app_id",
-			"logger.exception",
-			"find_file",
-			"load from local file",
-			"traceback",
-			"StaticClient",
-			"import os",
-			"override_public",
-			"imp",
-			"Transport",
-			"transport",
-			"api_views",
-			"import",
-			"save",
-			"description",
-			"config",
-			"app.config",
-			"export",
-			"tutum",
-			"Instance",
-			"base",
-			"Executor",
-			"executor",
-			"instance",
-			"Instance",
-			"import re",
-			"get_static",
-			"start",
-			"import pdb; "
+			"log"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -909,366 +890,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "static/js/controller.js",
-					"settings":
-					{
-						"buffer_size": 16041,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								15958,
-								15968
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2.0,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5.0,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10.0,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110.0
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublime_auto_complete": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2.0,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4324.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"settings":
-					{
-						"buffer_size": 1003,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								197,
-								197
-							]
-						],
-						"settings":
-						{
-							"__vi_external_disable": true,
-							"codeintel": true,
-							"codeintel_config":
-							{
-								"JavaScript":
-								{
-									"codeintel_max_recursive_dir_depth": 2.0,
-									"codeintel_scan_files_in_project": false,
-									"javascriptExtraPaths":
-									[
-									]
-								},
-								"PHP":
-								{
-									"codeintel_max_recursive_dir_depth": 5.0,
-									"codeintel_scan_files_in_project": false,
-									"phpExtraPaths":
-									[
-									]
-								},
-								"Python":
-								{
-									"env":
-									{
-									}
-								}
-							},
-							"codeintel_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_live": true,
-							"codeintel_live_enabled_languages":
-							[
-								"JavaScript",
-								"Mason",
-								"XBL",
-								"XUL",
-								"RHTML",
-								"SCSS",
-								"Python",
-								"HTML",
-								"Ruby",
-								"Python3",
-								"XML",
-								"Sass",
-								"XSLT",
-								"Django",
-								"HTML5",
-								"Perl",
-								"CSS",
-								"Twig",
-								"Less",
-								"Smarty",
-								"Node.js",
-								"Tcl",
-								"TemplateToolkit",
-								"PHP"
-							],
-							"codeintel_max_recursive_dir_depth": 10.0,
-							"codeintel_scan_exclude_dir":
-							{
-								"JavaScript":
-								[
-									"/build/",
-									"/min/"
-								]
-							},
-							"codeintel_scan_files_in_project": true,
-							"codeintel_selected_catalogs":
-							[
-								"PyWin32",
-								"jQuery",
-								"Rails"
-							],
-							"codeintel_snippets": true,
-							"codeintel_syntax_map":
-							{
-								"Python Django": "Python"
-							},
-							"codeintel_tooltips": "popup",
-							"draw_white_space": "none",
-							"git_repo": "/Users/fatrix/Dropbox/Repositories/skyblue-cloud",
-							"git_status": true,
-							"git_view": "status",
-							"sublime_auto_complete": true,
-							"syntax": "Packages/SublimeGit/syntax/SublimeGit Status.tmLanguage",
-							"translate_tabs_to_spaces": false,
-							"word_wrap": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -1370,16 +993,32 @@
 		"selected_items":
 		[
 			[
-				"control",
+				"contr",
 				"static/js/controller.js"
+			],
+			[
+				"cloud.p",
+				"app/cloud.py"
 			],
 			[
 				"index",
 				"static/index.html"
 			],
 			[
+				"views",
+				"static/views/cloud.html"
+			],
+			[
+				"ine",
+				"static/index.html"
+			],
+			[
 				"cloud.py",
 				"app/cloud.py"
+			],
+			[
+				"control",
+				"static/js/controller.js"
 			],
 			[
 				"cloud.html",
@@ -1402,10 +1041,6 @@
 				"static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"
 			],
 			[
-				"views",
-				"static/views/login.html"
-			],
-			[
 				"services",
 				"static/js/services.js"
 			],
@@ -1415,10 +1050,6 @@
 			],
 			[
 				"controller.js",
-				"static/js/controller.js"
-			],
-			[
-				"contr",
 				"static/js/controller.js"
 			],
 			[
@@ -1872,14 +1503,6 @@
 			[
 				"controllers.js",
 				"fastapp/fastapp/static/js/app/controllers.js"
-			],
-			[
-				"__in",
-				"fastapp/fastapp/__init__.py"
-			],
-			[
-				"cockpit",
-				"fastapp/fastapp/templates/fastapp/cockpit.html"
 			]
 		],
 		"width": 0.0
@@ -1895,7 +1518,7 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 286.0,
 	"status_bar_visible": true
 }
