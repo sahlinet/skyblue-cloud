@@ -40,7 +40,9 @@
 
         <div class="subbox">
             <h4>Image</h4>
-            <p>{{ service.data.image }}</p>
+            <p>
+            <a href="#" editable-text="service.data.image" onaftersave="updateTerminateConfig(service)">{{ service.data.image }}</a>
+            </p>
         </div>
 
         <div class="subbox">
