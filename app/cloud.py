@@ -1,6 +1,8 @@
 import sys
 import re
 thismodule = sys.modules[__name__]
+from requests import HTTPError
+import copy
 
 import json
 import requests
@@ -23,6 +25,7 @@ def func(self):
 	
 	debug = self.debug
 	info = self.info
+	error = self.error
 	rid = self.rid
 
 	lcache = {}
@@ -89,7 +92,7 @@ def func(self):
 					app_dict = {'name': app.name, 
 								'id': app.uuid,
 								'uri': app.resource_uri,
-								'all_env_vars': all_env_vars,
+								#'all_env_vars': all_env_vars,
 								'custom_env_vars': custom_env_vars,
 								'state': app.state,
 								'tags': tags,
@@ -100,7 +103,7 @@ def func(self):
 								
 								# debug
 								'details': details,
-								'full': app,
+								#'full': app,
 								}
 
 					# workout to get vars without linked_vars from environment variables
@@ -109,12 +112,25 @@ def func(self):
 					conts = []
 					ports = []
 					status_code, containers = self._call("/api/v1/service/"+app.uuid+"/", "GET", get_cached=True)
-					containers = Bunch(json.loads(containers))
+					containers = json.loads(containers)
 					app_dict['env_vars'] = json.loads(text)['container_envvars']
 
 					for container in details.containers:
 						status_code, container_data = self._call(container, "GET")
+
 						container_data_json = json.loads(container_data)
+
+						# cleanup, contains keys with '/' and this char is not allowed on firebase
+						for link in container_data_json['linked_to_container']:
+							if len(link['endpoints']) > 0:
+								#debug(rid, link['endpoints'])
+								endpoints = copy.deepcopy(link['endpoints'])
+								for k, v in link['endpoints'].iteritems():
+									endpoints[k.replace("/", "_")] = v
+									del endpoints[k]
+								#debug(rid, link['endpoints'])
+								debug(rid, "replaces slash to underscore (firebase workaround): "+str(endpoints))
+								link['endpoints'] = endpoints
 
 						# running port configuration
 						conts.append(container_data_json)
@@ -133,7 +149,7 @@ def func(self):
 
 					app_dict.update({'containers': conts})
 					app_dict.update({'ports': ports})
-					app_dict.update({'image': containers.image_name})
+					app_dict.update({'image': containers['image_name']})
 					ids.append(app_dict)
 				# change linked.to_service to app name
 				ids = self._custom_link_data(ids)
@@ -164,7 +180,8 @@ def func(self):
 				r = requests.delete(base_url+uri, headers=headers)
 				
 			end = int(round(time.time() * 1000))
-			debug(rid, (str(end-start), "_call", uri, method, r.status_code, r.text))
+			#debug(rid, (str(end-start), "_call", uri, method, r.status_code, r.text))
+			#info(rid, (str(end-start), "_call", uri, method, r.status_code))
 			if method == "GET" and get_cached:
 				if not cached:
 					lcache.update({uri: [r.status_code, r.text]})
@@ -291,7 +308,7 @@ def func(self):
 			self.instance_count = 1
 			self.id = kwargs['data'].get('id', None)
 			self.image = kwargs['data']['image']
-			self.env_vars = kwargs['data'].get('env_vars', [])
+			#self.env_vars = kwargs['data'].get('env_vars', [])
 			self.custom_env_vars = kwargs['data'].get('custom_env_vars', [])
 			self.uri = kwargs['data'].get('uri', "uri1")
 			self.linked = kwargs['data'].get('linked', [])
@@ -299,7 +316,7 @@ def func(self):
 			self.tags = kwargs['data'].get('tags', [])
 			
 			# full
-			self.full = kwargs['data'].get('full', None)
+			#self.full = kwargs['data'].get('full', None)
 			self.details = kwargs['data'].get('details', None)
 			
 			self.terminate = kwargs['terminate']
@@ -321,9 +338,9 @@ def func(self):
 				'state': self.state,
 				'linked': self.linked,
 				'details': self.details,
-				'full': self.full,
+				#'full': self.full,
 				'custom_env_vars': self.custom_env_vars,
-				'env_vars': self.env_vars,
+				#'env_vars': self.env_vars,
 				'ports': self.container_ports,
 				'tags': self.tags,
 			}
@@ -392,7 +409,7 @@ def func(self):
 	# sync
 	else:
 
-		debug(rid, "Start sync for user %s" % firebase_uid)
+		info(rid, "Start sync for user %s" % firebase_uid)
 		tutum_service = TutumService(user_config.tutum['api']['user'], user_config.tutum['api']['key'])
 
 		# get data from tutum
@@ -413,20 +430,31 @@ def func(self):
 			for service_data in tutum_data:
 				if not service_data['state'] == "Terminated":
 					logms("save "+service_data['name'])
-					app.put('/users/%s/services/%s/' % (firebase_uid, service_data['name']), "data", 
-							{'name': service_data['name'],
+
+					data = {'name': service_data['name'],
 							 'id': service_data['id'],
 							 'uri': service_data.get('uri'),
 							 'image': service_data['image'],
 							 'state': service_data['state'],
 							 'linked': service_data['linked'],
 							 'details': service_data['details'],
-							 'full': service_data['full'],
+							 #'full': service_data['full'],
 							 'custom_env_vars': service_data['custom_env_vars'],
 							 'env_vars': service_data['env_vars'],
 							 'instances': service_data['containers'],
 							 'ports': service_data['ports'],
-							 'tags': service_data['tags']})
+							 'tags': service_data['tags']
+							 }
+					url = '/users/%s/services/%s/' % (firebase_uid, service_data['name'])
+					try:
+						app.put(url, "data", data)
+					except HTTPError, e:
+						error(rid, "%s could not be saved!" % service_data['name'])
+						error(rid, str(e))
+						error(rid, e.response.text)
+						error(rid, json.dumps(data))
+						error(rid, url)
+						raise e
 					logms("saved "+service_data['name'])
 		result = tutum_names
 		
