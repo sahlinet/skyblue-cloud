@@ -2,7 +2,6 @@
 <div>
     <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
     <div class="row">
-
         <div class="col-lg-8">
             <h3>Filter</h3>
             <form>
@@ -10,6 +9,12 @@
             </form>
         </div>
     </div>
+
+{% endverbatim %}
+
+{{ GOOGLE_ADSENSE | safe }}
+
+{% verbatim %}
 
     <h3>Services</h3>
     <div class="row" ng-repeat="service in services | orderByPriority | filter:searchText" >
