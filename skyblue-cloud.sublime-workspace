@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"en",
+				"custom_env_vars"
+			],
+			[
 				"succes",
 				"successfully"
 			],
@@ -195,12 +199,12 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 107.0,
+		"height": 27.0,
 		"selected_items":
 		[
 			[
-				"commit",
-				"Git: Commit"
+				"push",
+				"Git: Push Current Branch"
 			],
 			[
 				"status",
@@ -211,12 +215,20 @@
 				":0 - BOF"
 			],
 			[
-				":w",
-				":w - Save"
+				"format",
+				"XML Lint: Format"
 			],
 			[
-				"push",
-				"Git: Push Current Branch"
+				"set syn json",
+				"Set Syntax: JSON"
+			],
+			[
+				"commit",
+				"Git: Commit"
+			],
+			[
+				":w",
+				":w - Save"
 			],
 			[
 				"inde",
@@ -435,10 +447,6 @@
 				"Package Control: Install Package"
 			],
 			[
-				"format",
-				"XML Lint: Format"
-			],
-			[
 				"package",
 				"Package Control: Install Package"
 			],
@@ -600,12 +608,19 @@
 	},
 	"file_history":
 	[
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/controller.js",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/services.js",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/index.html",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/profile.html",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/cloud.html",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/app/cloud.py",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/index.html",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/css/tutumui2.css",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/cloud.html",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/css/tutumui.css",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/controller.js",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/documentation.html",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/profile.html",
+		"/Users/fatrix/Dropbox/Repositories/tutum-docker-clusterproxy/f",
+		"/Users/fatrix/Downloads/skyblue-cloud-dev-planet-int-lb-export.json",
+		"/Users/fatrix/Downloads/skyblue-cloud-dev-services-export.json",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-planet/skyblue-int.pem",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/services.js",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/skyblue_cloud.egg-info/PKG-INFO",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/login.html",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
@@ -720,14 +735,7 @@
 		"/Users/fatrix/Dropbox/Repositories/fastapp/README",
 		"/Users/fatrix/Dropbox/Repositories/sahli_net/app/sahli_net/.golive.rc",
 		"/Users/fatrix/virtualenvs/sahli_net/lib/python2.7/site-packages/IPython/utils/path.py",
-		"/Users/fatrix/virtualenvs/sahli_net/src/django-extensions-master/django_extensions/templatetags/syntax_color.py",
-		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/__init__.py",
-		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/tests.py",
-		"/Users/fatrix/Dropbox/Repositories/sahli.net/app/sahli_net/local_settings.py",
-		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/views.py",
-		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/executors/remote.py",
-		"/Users/fatrix/Dropbox/Repositories/sahli.net/app/sahli_net/envs/sandbox.py",
-		"/Users/fatrix/Dropbox/Repositories/django-fastapp/fastapp/models.py"
+		"/Users/fatrix/virtualenvs/sahli_net/src/django-extensions-master/django_extensions/templatetags/syntax_color.py"
 	],
 	"find":
 	{
@@ -745,6 +753,32 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"containers",
+			"endpoints",
+			"details",
+			"linked_to",
+			"containers",
+			"details",
+			"debug",
+			"all_env_vars",
+			"env_vars",
+			"ERROR",
+			"could not be save",
+			"full",
+			"Image",
+			"Ctrl",
+			"full_role",
+			"role",
+			"role_config",
+			"roles",
+			"service.roles",
+			"roles",
+			"_change_state",
+			"clear_state",
+			"firebase",
+			"get_config",
+			"start(",
+			"ports",
 			"TutumService",
 			"Firebase",
 			"firebase",
@@ -846,33 +880,7 @@
 			"repeat",
 			"hook",
 			"Auth",
-			"Authentica",
-			"tutum.co",
-			"tutum_service",
-			"r.tutum",
-			"hook",
-			"get_data",
-			" Service(",
-			"details",
-			"link_variables",
-			"links",
-			"link_value",
-			"custom_link_data",
-			" Service(",
-			"Service(",
-			"link",
-			"linked",
-			"service.linked",
-			"linked",
-			"change_state",
-			"stop",
-			"size",
-			"container_size",
-			"linked_to",
-			"web_public_dns",
-			"tutum.user",
-			"tutum",
-			"log"
+			"Authentica"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -993,16 +1001,48 @@
 		"selected_items":
 		[
 			[
+				"tutum2",
+				"static/css/tutumui2.css"
+			],
+			[
+				"staticcss",
+				"static/css/tutumui.css"
+			],
+			[
+				"cloud.html",
+				"static/views/cloud.html"
+			],
+			[
+				"index",
+				"static/index.html"
+			],
+			[
+				"cloud.py",
+				"app/cloud.py"
+			],
+			[
+				"profile",
+				"static/views/profile.html"
+			],
+			[
+				"cloud",
+				"static/views/cloud.html"
+			],
+			[
+				"cloud.ht",
+				"static/views/cloud.html"
+			],
+			[
+				"controll",
+				"static/js/controller.js"
+			],
+			[
 				"contr",
 				"static/js/controller.js"
 			],
 			[
 				"cloud.p",
 				"app/cloud.py"
-			],
-			[
-				"index",
-				"static/index.html"
 			],
 			[
 				"views",
@@ -1013,16 +1053,8 @@
 				"static/index.html"
 			],
 			[
-				"cloud.py",
-				"app/cloud.py"
-			],
-			[
 				"control",
 				"static/js/controller.js"
-			],
-			[
-				"cloud.html",
-				"static/views/cloud.html"
 			],
 			[
 				"login.html",
@@ -1033,20 +1065,12 @@
 				"static/js/controller.js"
 			],
 			[
-				"controll",
-				"static/js/controller.js"
-			],
-			[
 				"ui-bootstrap-tpls.js",
 				"static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"
 			],
 			[
 				"services",
 				"static/js/services.js"
-			],
-			[
-				"cloud",
-				"app/cloud.py"
 			],
 			[
 				"controller.js",
@@ -1487,22 +1511,6 @@
 			[
 				"local.py",
 				"sahli_net/app/sahli_net/envs/local.py"
-			],
-			[
-				"sandbox",
-				"sahli_net/app/sahli_net/envs/sandbox.py"
-			],
-			[
-				"contro",
-				"fastapp/fastapp/static/js/app/controllers.js"
-			],
-			[
-				"fastapp.js",
-				"fastapp/fastapp/static/js/fastapp.js"
-			],
-			[
-				"controllers.js",
-				"fastapp/fastapp/static/js/app/controllers.js"
 			]
 		],
 		"width": 0.0

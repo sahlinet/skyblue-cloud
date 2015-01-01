@@ -286,7 +286,9 @@ def func(self):
 			service_dict = self.app.get(self.services_url % self.user, None)
 
 			if not service_dict:
-				raise Exception("services not found on firebase")
+				#raise Exception("services not found on firebase")
+				info(rid, "services not found on firebase")
+				service_dict = []
 			return service_dict
 		
 		def save_service(self, service):
@@ -415,8 +417,10 @@ def func(self):
 		# get data from tutum
 		tutum_data = tutum_service.get_data(name=None)
 		tutum_names = [ a['name'] for a in tutum_data ]
-		
+
 		services = firebase.get_services()
+
+		# Clear state for services which aren't on Tutum anymore.
 		for service in services:
 			
 			if service not in tutum_names:
@@ -424,10 +428,11 @@ def func(self):
 				service_obj.clear_state()
 				firebase.save_service(service_obj)
 				
-		
-		# put data to firebase for client
+		# persist data from tutum to firebase
 		if tutum_data is not None:
 			for service_data in tutum_data:
+
+				# TODO: is there nothing to sync if the service is terminated?
 				if not service_data['state'] == "Terminated":
 					logms("save "+service_data['name'])
 
