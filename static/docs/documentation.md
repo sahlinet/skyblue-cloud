@@ -28,12 +28,12 @@ You can stop and start services. Depending on the selection *"Destroy on stop"* 
 * * * 
 
 ### Hooks
-For every service you can configure Hook URL's. The Hook URL's are called from your browser with a POST request, the payload is JSON with following entries:
+*Web Hooks* permit extending the workflow and apply additional logic. For every service you can configure *Web Hooks*. The hook are called from your browser with a POST request, the payload is JSON with following entries:
 
-* Name of the service as `name`
+* Name of the service: `name`
 
-* All Variables as `link_variables`
+* All container variables: `link_variables`
 
-**On start** the start Hook is called after the service has been started. **On stop** the stop hook is called before stoping the service. The service gets stopped only when the hook returned with a successful response code (2xx). The hook can be triggered manually with the button *"Test hook"*.
+**On start** the start hook is called after the service has been started. **On stop** the stop hook is called before stopping the service. The service gets stopped only when the hook returned with a successful response code (2xx). The hook can be triggered manually with the button *"Test hook"*. Keep in mind that the same-origin security policy applies (use [CORS](http://de.wikipedia.org/wiki/Cross-Origin_Resource_Sharing) on server-side).
 
-For a deeper look into the request inspect it with <http://requestb.in/>.
+For a deeper inspection use <http://requestb.in/> with a [Proxy on skyblue/planet](https://sahli.net/blog/proxy-exec-on-planet).
