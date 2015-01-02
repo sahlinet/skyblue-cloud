@@ -1,0 +1,29 @@
+<h2>Documentation</h2>
+<hr />
+<h3>Providers</h3>
+<h4>Tutum</h4>
+<p>skyblue/cloud queries Tutum for containers and can manage their lifecycle. You must provide your username and Api key from Tutum, which can be found in the <em>"Account info"</em> page <a href="https://dashboard.tutum.co/account/">https://dashboard.tutum.co/account/</a> under the tab "Api key".</p>
+<p>Enter the username and key in the profile page.</p>
+<h4>Docker</h4>
+<blockquote>
+<p>Coming soon.</p>
+</blockquote>
+<h3>Synchronisation</h3>
+<p>To persist your container configuration on skyblue/cloud initiate the synchronisation with the "Sync" button. This action will take a while, depending on the number of services and containers you run.</p>
+<hr />
+<h3>Configuration</h3>
+<h4>Lifecycle</h4>
+<p>You can stop and start services. Depending on the selection <em>"Destroy on stop"</em> or <em>"Keep on stop"</em> the service is terminated (destroyed) or stopped. </p>
+<hr />
+<h3>Hooks</h3>
+<p>For every service you can configure Hook URL's. The Hook URL's are called from your browser with a POST request, the payload is JSON with following entries:</p>
+<ul>
+<li>
+<p>Name of the service as <code>name</code></p>
+</li>
+<li>
+<p>All Variables as <code>link_variables</code></p>
+</li>
+</ul>
+<p><strong>On start</strong> the start Hook is called after the service has been started. <strong>On stop</strong> the stop hook is called before stoping the service. The service gets stopped only when the hook returned with a successful response code (2xx). The hook can be triggered manually with the button <em>"Test hook"</em>.</p>
+<p>For a deeper look into the request inspect it with <a href="http://requestb.in/">http://requestb.in/</a>.</p>

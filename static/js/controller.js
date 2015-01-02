@@ -27,6 +27,11 @@ myApp.controller("loginCtrl", ["$rootScope", "$scope", "$location", "$timeout", 
 
 }]);
 
+myApp.controller("documentationCtrl", ["$rootScope", "$scope", function($rootScope, $scope) {
+
+    console.log("in documentationCtrl");
+}]);
+
 myApp.controller("navigationCtrl", ["$rootScope", "$scope", "$location", "loginService", function($rootScope, $scope, $location, loginService) {
 
     $rootScope.location = $location;

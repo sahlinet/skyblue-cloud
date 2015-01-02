@@ -3,6 +3,8 @@ config(function($routeProvider, $locationProvider) {
     $routeProvider.
     when("/start",
         {templateUrl: "views/welcome.html"}).
+    when("/docs",
+        {templateUrl: "views/documentation.html", controller: "documentationCtrl"}).
     when("/cloud",
         {templateUrl: "views/cloud.html", controller: "cloudCtrl"}).
     when("/login",
@@ -22,6 +24,9 @@ run(function($rootScope, $location) {
             }
         };
         if ($rootScope.user == null) {
+            if (next.templateUrl === "views/documentation.html") {
+                return
+            }
             if (next.templateUrl === "views/login.html") {
             }
             else {
