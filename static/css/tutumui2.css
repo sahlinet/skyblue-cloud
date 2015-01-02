@@ -6,7 +6,7 @@
 	background-image: url("45degreee_fabric.png");
 	color: #999999;
 }          
-.topic h3, .topic h4, .topic__infos div {
+.topic h3, .topic h4 a, .topic h4, .topic__infos div {
 	color: #50c1e9 !important;
 }
 .btn-centered {
@@ -51,4 +51,7 @@ h4 > span.glyphicon {
 
 .ads {
 	margin-top: 30px;
+}
+.topic {
+	color: #50c1e9 !important
 }
