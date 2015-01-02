@@ -1,5 +1,7 @@
 ## Documentation
 
+<div class="alert alert-info" role="alert">skyblue/cloud is <strong>not a replacement</strong> of the Tutum Dashboard and skyblue/cloud or his creator and contributor are <strong>not associated</strong> directly with Tutum.</div>
+
 * * * 
 
 ### Providers
@@ -23,7 +25,9 @@ To persist your container configuration on skyblue/cloud initiate the synchronis
 ### Configuration
 
 #### Lifecycle
-You can stop and start services. Depending on the selection *"Destroy on stop"* or *"Keep on stop"* the service is terminated (destroyed) or stopped. 
+Initial creation of a container configuration must be done at the provider.
+
+You can stop and start synchronized services. Depending on the selection *"Destroy on stop"* or *"Keep on stop"* the service is terminated (destroyed) or stopped. 
 
 * * * 
 
@@ -37,3 +41,5 @@ You can stop and start services. Depending on the selection *"Destroy on stop"* 
 **On start** the start hook is called after the service has been started. **On stop** the stop hook is called before stopping the service. The service gets stopped only when the hook returned with a successful response code (2xx). The hook can be triggered manually with the button *"Test hook"*. Keep in mind that the same-origin security policy applies (use [CORS](http://de.wikipedia.org/wiki/Cross-Origin_Resource_Sharing) on server-side).
 
 For a deeper inspection use <http://requestb.in/> with a [Proxy on skyblue/planet](https://sahli.net/blog/proxy-exec-on-planet).
+
+
