@@ -13,6 +13,8 @@ Enter the username and key in the profile page.
 
 > Coming soon.
 
+* * * 
+
 ### Synchronisation
 To persist your container configuration on skyblue/cloud initiate the synchronisation with the "Sync" button. This action will take a while, depending on the number of services and containers you run.
 

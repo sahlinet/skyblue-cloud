@@ -39,6 +39,8 @@
 
   </script>
 
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="img/favicon.ico" type="image/x-icon">
 
   <!-- xeditable -->
   <link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
@@ -78,12 +80,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand">skyblue/cloud</a>
+              <a class="navbar-brand" href="#/start">skyblue/cloud</a>
             </div>
             <div class="collapse navbar-collapse">
               <ul class="nav navbar-nav navbar-right">
-                <li><a ng-class="{true:'current', false:''}[current('start')]" class="nav-link current" href="#/start">Getting Started</a></li>
-                <li><a ng-class="{true:'current', false:''}[current('docs')]" class="nav-link" href="#/docs">Documentation</a></li>
+                <li><a ng-class="{true:'current', false:''}[current('start')]" class="nav-link current" href="#/start">Start</a></li>
+                <li><a ng-class="{true:'current', false:''}[current('docs')]" class="nav-link" href="#/docs">Docs</a></li>
                 <li><a ng-class="{true:'current', false:''}[current('cloud')]" ng-show="user" class="nav-link" href="#/cloud">Cloud</a></li>
                 
                 <li ng-show="user"><a ng-class="{true:'current', false:''}[current('profile')]" class="nav-link" href="#/profile">Profile</a></li>
@@ -104,7 +106,7 @@
           </div>
           <div class="topic__infos">
             <div class="container">
-              Manage your Docker instances in the Cloud.
+              Manage your Docker instances in the cloud
             </div>
           </div>
         </div>
@@ -114,18 +116,18 @@
         <div ng-view=""></div>
         <div class="row" ng-show="showMainContent()">
           <div class="col-md-12">
-            <div class="docs-article docs--start" id="overview">
+            <!--<div class="docs-article docs--start" id="overview">
               <h3>Why</h3>
               <p>skyblue/cloud will solve problems which Tutum does not solve.</p>
-            </div>
+            </div>-->
             <div class="docs-article docs--start" id="overview">
               <h3>Features</h3>
               <p>Read what skyblue/cloud will do for you.</p>
               <dl>
                 <dt>Persist Configuration</dt>
-                <dd>After termination of a service the data and configuration of the service is lost. skyblue/cloud keeps your configuration.</dd>
+                <dd>After termination of a containerized service the data and configuration of the service is lost. skyblue/cloud keeps your configuration for recreating the service later.</dd>
                 <dt>Web Hooks</dt>
-                <dd>Before stopping and after starting your service a webhook is called with container's environment variables. The hooks are under your control and 
+                <dd>Before stopping and after starting a webhook with information about the confainer. The hooks are under your control and 
                   can for example dump/restore a database, delete/update a record in a dns zone or pausing/activating monitoring.</dd>
                 <dt>Custom Workflow</dt>
                 <dd>skyblue/cloud is open source project to which you can contribute to. This project reacts to solve simple problems.</dd>
@@ -138,30 +140,43 @@
       <div class="site-footer">
         <div class="container">
           <div ng-show="showMainContent()">
+              <div class="alert alert-info" role="alert">This is not a replacement of the Tutum Dashboard and skyblue/cloud is not associated in any way with Tutum.</div>
             <div class="download">
               <span class="download__infos">You have to <b>try it</b>.</span>
               <a class="btn btn-primary" href="/login">Login</a>
-              <a class="btn" href="#/documentation">Read the Documentation</a>
+              <a class="btn" href="#/docs">Read the docs</a>
             </div>
             <hr class="dashed" />
             <div class="row">
-              <div class="col-md-4">
+              <!--<div class="col-md-4">
                 <h3>Get involved</h3>
                 <p>Bootflat is hosted on <a href="https://github.com/bootflat/bootflat.github.io" target="_blank" rel="external nofollow">GitHub</a> and open for everyone to contribute. Please give us some feedback and join the development!</p>
               </div>
               <div class="col-md-4">
                 <h3>Contribute</h3>
                 <p>You want to help us and participate in the development or the documentation? Just fork Bootflat on <a href="https://github.com/bootflat/bootflat.github.io" target="_blank" rel="external nofollow">GitHub</a> and send us a pull request.</p>
+              </div>-->
+
+              <div class="col-md-4">
+                <h3>Provide feedback</h3>
+                <!--<p>Open a <a href="https://github.com/bootflat/bootflat.github.io/issues" target="_blank" rel="external nofollow">new issue</a> on GitHub. Please search for existing issues first and make sure to include all relevant information.</p>-->
+                Your words are important to know which features are needed or not. Please inform me about your thoughts.
+              </div>
+              <div class="col-md-4">
+                <h3>Planned features</h3>
+                <!--<p>Open a <a href="https://github.com/bootflat/bootflat.github.io/issues" target="_blank" rel="external nofollow">new issue</a> on GitHub. Please search for existing issues first and make sure to include all relevant information.</p>-->
+                Docker support, multiple Hooks, more configurable Parameters.
               </div>
               <div class="col-md-4">
                 <h3>Found a bug?</h3>
-                <p>Open a <a href="https://github.com/bootflat/bootflat.github.io/issues" target="_blank" rel="external nofollow">new issue</a> on GitHub. Please search for existing issues first and make sure to include all relevant information.</p>
+                <!--<p>Open a <a href="https://github.com/bootflat/bootflat.github.io/issues" target="_blank" rel="external nofollow">new issue</a> on GitHub. Please search for existing issues first and make sure to include all relevant information.</p>-->
+                In case of a misfunction or security issue please email <a href="mailto:info@sahli.net">me</a>.
               </div>
             </div>
             <hr class="dashed" />
             <div class="row">
               <div class="col-md-6">
-                <h3>Talk to us</h3>
+                <h3>Talk to me</h3>
                 <ul></ul>
                 <li>Tweet me&nbsp;<a href="https://twitter.com/philipsahli" target="_blank">@philipsahli</a>&nbsp;&nbsp;&nbsp;&nbsp;Email me at <span class="connect">info@sahli.net</span></li>
                 <li>
@@ -175,9 +190,10 @@
         </div> 
         <hr ng-show="showMainContent()" class="dashed" />
         <div class="copyright clearfix">
-          <p><b>skyblue/cloud</b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="getting-started.html">Getting Started</a>&nbsp;&bull;&nbsp;<a href="documentation.html">Documentation</a></p>
-          <p>Running on <a href="https://sahli.net/skyblue/planet/">Skyblue/Planet</a> | Built with <a href="https://angularjs.org/">AngularJS</a> : <a href="https://www.firebase.com/">Firebase</a></p>
-          <p>&copy; 2014 <a href="http://sahli.net" target="_blank">sahli.net</a></p>
+          <p><b>skyblue/cloud</b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#/start">Start</a>&nbsp;&bull;&nbsp;<a href="#/docs">Docs</a></p>
+          <!--<p>Running on <a href="https://sahli.net/skyblue/planet/">Skyblue/Planet</a> | Built with <a href="https://angularjs.org/">AngularJS</a> : <a href="https://www.firebase.com/">Firebase</a></p>-->
+          <p>Running on <a href="http://bit.ly/1K6ZTcZ" target="_blank">skyblue/planet</a></p>
+          <p>&copy; 2014 <a href="http://bit.ly/11gbFZI" target="_blank">sahli.net</a></p>
         </div>
       </div>
     </div>
