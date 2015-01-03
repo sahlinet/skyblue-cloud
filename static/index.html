@@ -101,12 +101,12 @@
         </nav>
         <div class="topic" ng-show="showMainContent()">
           <div class="container">
-            <h3>Simplify and optimize how you manage your containers</h3>
-            <h4>skyblue/cloud is a Wrapper UI around <a href="http://www.tutum.co/">Tutum</a> with goodies.</h4>
+            <h3>skyblue/cloud</h3>
+            <h4>UI for Container Management in the Cloud</h4>
           </div>
           <div class="topic__infos">
             <div class="container">
-              Manage your Docker instances in the cloud
+              Better Container Management
             </div>
           </div>
         </div>
@@ -122,15 +122,16 @@
             </div>-->
             <div class="docs-article docs--start" id="overview">
               <h3>Features</h3>
-              <p>Read what skyblue/cloud will do for you.</p>
               <dl>
                 <dt>Persist Configuration</dt>
                 <dd>After termination of a containerized service the data and configuration of the service is lost. skyblue/cloud keeps your configuration for recreating the service later.</dd>
+                <dt>Providers</dt>
+                <dd>At the moment <a href="https://www.tutum.co/" target="_blank">Tutum</a> is the only impolemented Docker Platform.</dd>
                 <dt>Web Hooks</dt>
                 <dd>On container stop and start a webhook with information about the container is called. The hooks are under your control and 
                   can for example dump/restore a database, delete/update a record in a dns zone or pausing/activating monitoring.</dd>
-                <dt>Custom Workflow</dt>
-                <dd>skyblue/cloud is open source project to which you can contribute to. This project reacts to solve simple problems.</dd>
+                <dt>Customization</dt>
+                <dd>skyblue/cloud is <a href="http://en.wikipedia.org/wiki/MIT_License">MIT licensed</a> and is waiting for contributors. Because the application is designated to run on <a href="http://bit.ly/1K6ZTcZ" target="_blank">skyblue/planet</a>, there is a very low deployment footprint.</dd>
               </dl>
             </div>
           </div>
@@ -141,7 +142,7 @@
         <div class="container">
           <div ng-show="showMainContent()">
             <div class="download">
-              <span class="download__infos">You have to <b>try it</b>.</span>
+              <span class="download__infos">You have to <b>try it</b></span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <a class="btn btn-primary" href="/login">Login</a>
               <a class="btn" href="#/docs">Read the docs</a>
             </div>
@@ -159,7 +160,7 @@
               <div class="col-md-4">
                 <h3>Provide feedback</h3>
                 <!--<p>Open a <a href="https://github.com/bootflat/bootflat.github.io/issues" target="_blank" rel="external nofollow">new issue</a> on GitHub. Please search for existing issues first and make sure to include all relevant information.</p>-->
-                Your words are important to know which features are needed or not. Please inform me about your thoughts.
+                Your words are important to know which features are needed or not. Please contact me for discussing your thoughts.
               </div>
               <div class="col-md-4">
                 <h3>Planned features</h3>
@@ -192,7 +193,7 @@
           <p><b>skyblue/cloud</b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#/start">Start</a>&nbsp;&bull;&nbsp;<a href="#/docs">Docs</a></p>
           <!--<p>Running on <a href="https://sahli.net/skyblue/planet/">Skyblue/Planet</a> | Built with <a href="https://angularjs.org/">AngularJS</a> : <a href="https://www.firebase.com/">Firebase</a></p>-->
           <p>Running on <a href="http://bit.ly/1K6ZTcZ" target="_blank">skyblue/planet</a></p>
-          <p>&copy; 2014 <a href="http://bit.ly/11gbFZI" target="_blank">sahli.net</a></p>
+          <p>&copy; 2014 <a href="http://bit.ly/11gbFZI" target="_blank">sahli.net</a>&nbsp;&bull;&nbsp;skyblue/cloud is <a href="http://en.wikipedia.org/wiki/MIT_License">MIT licensed</a></p>
         </div>
       </div>
     </div>

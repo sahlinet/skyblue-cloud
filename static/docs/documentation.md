@@ -1,6 +1,6 @@
 ## Documentation
 
-<div class="alert alert-info" role="alert">skyblue/cloud is <strong>not a replacement</strong> of the Tutum Dashboard and skyblue/cloud or his creator and contributor are <strong>not associated</strong> directly with Tutum.</div>
+<div class="alert alert-info" role="alert">skyblue/cloud is <strong>not a replacement</strong> of the Tutum Dashboard and skyblue/cloud or his creator and contributors are <strong>not associated</strong> directly with Tutum.</div>
 
 * * * 
 
