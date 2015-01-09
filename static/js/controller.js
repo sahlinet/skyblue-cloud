@@ -156,8 +156,17 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope", "tutumServic
             if (!angular.isUndefined(service.hook_start)) {
                 url = service.hook_start;
                 $scope.alerts.push({ type: 'info', msg: 'Calling hook '+url });
+
+                //fill data 
+                // variables
                 data = service.data.details.link_variables;
+                angular.extend(data, service.data.public_access);
+                // name
                 data['name'] = service.data.name;
+                // public access with host and port
+                // CENTOS_1_PORT_22_TCP_ADDR
+
+
 
                 hookService.call_hook(url, data).then(function() {
                     $scope.alerts.push({ type: 'success', msg: 'Hook ended successfully' });
@@ -297,9 +306,16 @@ myApp.controller("HookCtrl", ["$scope", "hookService", "$rootScope", "$timeout",
         angular.forEach(service.data.custom_env_vars, function(value, key) {
             data[value['key']] = value['value'];
         });
+        /*angular.forEach(service.data.public_access, function(value, key) {
+            data[value['key']] = value['value'];
+            console.log(key);
+        });*/
+        angular.extend(data, service.data.public_access);
+        console.log(service.data.public_access);
+        console.log(data);
 
         data['HOOK_URL'] = url;
-        data['id'] = service.data.id;
+        data['ID'] = service.data.id;
         data['NAME'] = service.data.name;
 
         request_data = data;

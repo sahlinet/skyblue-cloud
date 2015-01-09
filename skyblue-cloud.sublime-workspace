@@ -195,11 +195,30 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "static/index.html",
+			"settings":
+			{
+				"buffer_size": 11728,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Remote:   origin @ git@git.sahli.net:philipsahli/skyblue-cloud.git\nLocal:    master ~/Dropbox/Repositories/skyblue-cloud\nHead:     0e4b7a0 add LICENSE, fix tipo\n\n\nUntracked files:\n	static/bower_components/jquery/\n	static/bower_components/select2/\n\n\n# Movement:\n#    r = refresh status\n#    1-5 = jump to section\n#    n = next item, N = next section\n#    p = previous item, P = previous section\n#\n# Staging:\n#    s = stage file/section, S = stage all unstaged files\n#    ctrl+shift+s = stage all unstaged and untracked files\n#    u = unstage file/section, U = unstage all files\n#    backspace = discard file/section, shift+backspace = discard everything\n#\n# Commit:\n#    c = commit, C = commit -a (add unstaged)\n#    ctrl+shift+c = commit --amend (amend previous commit)\n#\n# Other:\n#    i = ignore file, I = ignore pattern\n#    enter = open file\n#    d = view diff\n#\n# Stashes:\n#    a = apply stash, A = pop stash\n#    z = create stash, Z = create stash including untracked files\n#    backspace = discard stash",
+			"settings":
+			{
+				"buffer_size": 1009,
+				"line_ending": "Unix",
+				"name": "*git-status*: skyblue-cloud",
+				"read_only": true,
+				"scratch": true
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 27.0,
+		"height": 107.0,
 		"selected_items":
 		[
 			[
@@ -211,8 +230,48 @@
 				"Git: Status"
 			],
 			[
+				"log",
+				"Git: Log"
+			],
+			[
+				"previ",
+				"OmniMarkupPreviewer: Preview Current Markup in Browser"
+			],
+			[
 				":0",
 				":0 - BOF"
+			],
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				"mark",
+				"MarkdownTOC:Insert TOC"
+			],
+			[
+				"insert",
+				"MarkdownTOC:Insert TOC"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"preview",
+				"OmniMarkupPreviewer: Preview Current Markup in Browser"
+			],
+			[
+				"checkout",
+				"Git: Checkout"
+			],
+			[
+				"merge",
+				"Git: Merge"
+			],
+			[
+				"check",
+				"Git: Checkout"
 			],
 			[
 				"format",
@@ -225,10 +284,6 @@
 			[
 				"commit",
 				"Git: Commit"
-			],
-			[
-				":w",
-				":w - Save"
 			],
 			[
 				"inde",
@@ -271,20 +326,8 @@
 				"Git: Pull Current Branch"
 			],
 			[
-				"merge",
-				"Git: Merge"
-			],
-			[
-				"checkout",
-				"Git: Checkout"
-			],
-			[
 				"feature ",
 				"Git-flow: Feature Finish"
-			],
-			[
-				"check",
-				"Git: Checkout"
 			],
 			[
 				"hotf",
@@ -443,10 +486,6 @@
 				"TidyHTML"
 			],
 			[
-				"install",
-				"Package Control: Install Package"
-			],
-			[
 				"package",
 				"Package Control: Install Package"
 			],
@@ -521,10 +560,6 @@
 			[
 				"shell",
 				"Set Syntax: Shell Script (Bash)"
-			],
-			[
-				"log",
-				"Git: Log"
 			],
 			[
 				"Package Control: remo",
@@ -608,19 +643,25 @@
 	},
 	"file_history":
 	[
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/app/cloud.py",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/docs/documentation.md",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/index.html",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/css/tutumui2.css",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/cloud.html",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/css/tutumui.css",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/controller.js",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/documentation.html",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/css/tutumui2.css",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/img/favicon.ico",
+		"/Users/fatrix/Downloads/favicon (2).ico",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/controller.js",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/app.js",
+		"/Users/fatrix/Library/Application Support/Sublime Text 2/Packages/MarkdownTOC/MarkdownTOC.sublime-settings",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/cloud.html",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/services.js",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/bower_components/Bootflat/css/site.min.css",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/app/cloud.py",
+		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/css/tutumui.css",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/profile.html",
 		"/Users/fatrix/Dropbox/Repositories/tutum-docker-clusterproxy/f",
 		"/Users/fatrix/Downloads/skyblue-cloud-dev-planet-int-lb-export.json",
 		"/Users/fatrix/Downloads/skyblue-cloud-dev-services-export.json",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-planet/skyblue-int.pem",
-		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/js/services.js",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/skyblue_cloud.egg-info/PKG-INFO",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/views/login.html",
 		"/Users/fatrix/Dropbox/Repositories/skyblue-cloud/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
@@ -729,13 +770,7 @@
 		"/Users/fatrix/Dropbox/Repositories/fastapp/fastapp/templates/fastapp/cockpit.html",
 		"/Users/fatrix/Dropbox/Repositories/sahli_net/run_dev_docker.sh",
 		"/Users/fatrix/Dropbox/Repositories/sahli_net/nginx_site.conf",
-		"/Users/fatrix/Dropbox/Apps/sahli_fastapp_20140225/demo/request.py",
-		"/Users/fatrix/Dropbox/Repositories/sahli_net/run_sbx_docker.sh",
-		"/Users/fatrix/virtualenvs/sahli_net/lib/python2.7/site-packages/grappelli_safe/static/grappelli/tinymce/jscripts/tiny_mce/plugins/emotions/editor_plugin.js",
-		"/Users/fatrix/Dropbox/Repositories/fastapp/README",
-		"/Users/fatrix/Dropbox/Repositories/sahli_net/app/sahli_net/.golive.rc",
-		"/Users/fatrix/virtualenvs/sahli_net/lib/python2.7/site-packages/IPython/utils/path.py",
-		"/Users/fatrix/virtualenvs/sahli_net/src/django-extensions-master/django_extensions/templatetags/syntax_color.py"
+		"/Users/fatrix/Dropbox/Apps/sahli_fastapp_20140225/demo/request.py"
 	],
 	"find":
 	{
@@ -743,7 +778,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
 		]
@@ -753,6 +788,21 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"try",
+			"inform",
+			"Cloud",
+			"container",
+			"Read the docs",
+			"Documentation",
+			"Profile",
+			"Getting s",
+			"hook",
+			"ng-include",
+			"ng-view",
+			".show",
+			"show",
+			"get_services",
+			"		",
 			"containers",
 			"endpoints",
 			"details",
@@ -865,22 +915,7 @@
 			"service",
 			"running",
 			"Sync",
-			"tutumService",
-			"hookService",
-			"call_hook",
-			"tutumService",
-			"$on",
-			"tutumService",
-			"tutumService.update()",
-			"$on",
-			"on.",
-			"hookService",
-			"Running",
-			"sync",
-			"repeat",
-			"hook",
-			"Auth",
-			"Authentica"
+			"tutumService"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -898,8 +933,366 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "static/index.html",
+					"settings":
+					{
+						"buffer_size": 11728,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6486,
+								6486
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublime_auto_complete": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1500.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"settings":
+					{
+						"buffer_size": 1009,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								179,
+								179
+							]
+						],
+						"settings":
+						{
+							"__vi_external_disable": true,
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"draw_white_space": "none",
+							"git_repo": "/Users/fatrix/Dropbox/Repositories/skyblue-cloud",
+							"git_status": true,
+							"git_view": "status",
+							"sublime_auto_complete": true,
+							"syntax": "Packages/SublimeGit/syntax/SublimeGit Status.tmLanguage",
+							"translate_tabs_to_spaces": false,
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -1001,6 +1394,86 @@
 		"selected_items":
 		[
 			[
+				"index",
+				"static/index.html"
+			],
+			[
+				"doc",
+				"static/docs/documentation.md"
+			],
+			[
+				"inde",
+				"static/index.html"
+			],
+			[
+				"docsmd",
+				"static/docs/documentation.md"
+			],
+			[
+				"documenta",
+				"static/views/documentation.html"
+			],
+			[
+				"tutumui",
+				"static/css/tutumui2.css"
+			],
+			[
+				"docmd",
+				"static/docs/documentation.md"
+			],
+			[
+				"index.html",
+				"static/index.html"
+			],
+			[
+				"app.js",
+				"static/js/app.js"
+			],
+			[
+				"service",
+				"static/js/services.js"
+			],
+			[
+				"docs.md",
+				"static/docs/documentation.md"
+			],
+			[
+				"cloud",
+				"static/views/cloud.html"
+			],
+			[
+				"documentation.html",
+				"static/views/documentation.html"
+			],
+			[
+				"document",
+				"static/views/documentation.html"
+			],
+			[
+				"site.min.css",
+				"static/bower_components/Bootflat/css/site.min.css"
+			],
+			[
+				"index.ht",
+				"static/index.html"
+			],
+			[
+				"services.",
+				"static/js/services.js"
+			],
+			[
+				"controller",
+				"static/js/controller.js"
+			],
+			[
+				"cloud.html",
+				"static/views/cloud.html"
+			],
+			[
+				"cloud.py",
+				"app/cloud.py"
+			],
+			[
 				"tutum2",
 				"static/css/tutumui2.css"
 			],
@@ -1009,24 +1482,8 @@
 				"static/css/tutumui.css"
 			],
 			[
-				"cloud.html",
-				"static/views/cloud.html"
-			],
-			[
-				"index",
-				"static/index.html"
-			],
-			[
-				"cloud.py",
-				"app/cloud.py"
-			],
-			[
 				"profile",
 				"static/views/profile.html"
-			],
-			[
-				"cloud",
-				"static/views/cloud.html"
 			],
 			[
 				"cloud.ht",
@@ -1059,10 +1516,6 @@
 			[
 				"login.html",
 				"static/views/login.html"
-			],
-			[
-				"controller",
-				"static/js/controller.js"
 			],
 			[
 				"ui-bootstrap-tpls.js",
@@ -1451,66 +1904,6 @@
 			[
 				"loca",
 				"sahli_net/app/sahli_net/local_settings.py"
-			],
-			[
-				"requ",
-				"fastapp/requirements.txt"
-			],
-			[
-				"sahlilocal",
-				"sahli_net/app/sahli_net/envs/local.py"
-			],
-			[
-				"sahliintegr",
-				"sahli_net/app/sahli_net/envs/integration.py"
-			],
-			[
-				"local_set",
-				"sahli_net/app/sahli_net/local_settings.py"
-			],
-			[
-				"start",
-				"fastapp/fastapp/management/commands/start_worker.py"
-			],
-			[
-				"executorpy",
-				"fastapp/fastapp/executors/remote.py"
-			],
-			[
-				"sbxcontroller.js",
-				"Apps/sahli_fastapp_sbx/tutum/static/controller.js"
-			],
-			[
-				"sbxindex.html",
-				"Apps/sahli_fastapp_sbx/tutum/static/index.html"
-			],
-			[
-				"firebase_get",
-				"Apps/sahli_fastapp_sbx/tutum/firebase_get_data.py"
-			],
-			[
-				"dockerfile",
-				"sahli_net/Dockerfile"
-			],
-			[
-				"run_int",
-				"sahli_net/run_int_tutum.sh"
-			],
-			[
-				"__init",
-				"fastapp/fastapp/__init__.py"
-			],
-			[
-				"__",
-				"fastapp/fastapp/__init__.py"
-			],
-			[
-				"nginx",
-				"sahli_net/nginx.conf"
-			],
-			[
-				"local.py",
-				"sahli_net/app/sahli_net/envs/local.py"
 			]
 		],
 		"width": 0.0

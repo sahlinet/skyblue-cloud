@@ -26,11 +26,15 @@ myApp.factory('hookService', ['$rootScope', '$http', '$q', '$timeout', '$locatio
                 //$scope.alerts.push({ type: 'success', msg: 'Hook on start initiated' } );
                 deferred = $q.defer();
 
-                console.log(request_data);
-
-                /*if ($location.host() == "localhost") {
-                    url = "http://localhost:8000/fastapp/base/skyblue-cloud/exec/proxy_for_hooks/?json&async";
-                }*/
+                // Check if sync
+                console.log(url);
+                console.log(url.indexOf("firebase_get_data_external"));
+                if (url.indexOf("firebase_get_data_external") == -1 ) {
+                    // call hooks via proxy on the same host
+                    if ($location.host() == "localhost") {
+                        url = "http://localhost:8000/fastapp/base/skyblue-cloud/exec/proxy_for_hooks/?json&async";
+                    }
+                }
                 run = function(url, request_data) {
                     //console.log(request_data);
 

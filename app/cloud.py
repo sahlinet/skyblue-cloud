@@ -3,6 +3,7 @@ import re
 thismodule = sys.modules[__name__]
 from requests import HTTPError
 import copy
+import re
 
 import json
 import requests
@@ -115,6 +116,7 @@ def func(self):
 					containers = json.loads(containers)
 					app_dict['env_vars'] = json.loads(text)['container_envvars']
 
+					container_count = 1
 					for container in details.containers:
 						status_code, container_data = self._call(container, "GET")
 
@@ -123,7 +125,6 @@ def func(self):
 						# cleanup, contains keys with '/' and this char is not allowed on firebase
 						for link in container_data_json['linked_to_container']:
 							if len(link['endpoints']) > 0:
-								#debug(rid, link['endpoints'])
 								endpoints = copy.deepcopy(link['endpoints'])
 								for k, v in link['endpoints'].iteritems():
 									endpoints[k.replace("/", "_")] = v
@@ -136,6 +137,7 @@ def func(self):
 						conts.append(container_data_json)
 
 						# generate persistent configuration 
+						public_ports = {}
 						for port in container_data_json['container_ports']:
 							portc = {
 								'inner_port': port['inner_port'],
@@ -145,10 +147,31 @@ def func(self):
 							if port.has_key('outer_port'):
 								if port['outer_port'] == port['inner_port']:
 									portc['outer_port'] = port['outer_port']
+
 							ports.append(portc)
+							# CENTOS_1_TCP_PUBLIC_ADDR = aaa
+							# CENTOS_1_TCP_PUBLIC_PORT = 80
+							debug(rid, port)
+							if port['endpoint_uri']:
+								name = app.name.replace("-", "_").upper()
+								addr_k = "%s_%s_PORT_%s_%s_PUBLIC_ADDR" % (name, container_count, port['inner_port'], port['protocol'].upper())
+								addr = re.findall(r'.*:\/\/(.*):.*\/', port['endpoint_uri'], re.I)[0]
+								addr_v = addr
+								port_k = "%s_%s_PORT_%s_%s_PUBLIC_PORT" % (name, container_count, port['inner_port'], port['protocol'].upper())
+								port_v = port['outer_port']
+								public_port = {
+									addr_k: addr_v,
+									port_k: port_v
+										}
+								public_ports.update(public_port)
+								debug(rid, "public_port")
+								debug(rid, public_port)
+				
+						container_count = container_count+1
 
 					app_dict.update({'containers': conts})
 					app_dict.update({'ports': ports})
+					app_dict.update({'public_access': public_ports})
 					app_dict.update({'image': containers['image_name']})
 					ids.append(app_dict)
 				# change linked.to_service to app name
@@ -447,6 +470,7 @@ def func(self):
 							 'custom_env_vars': service_data['custom_env_vars'],
 							 'env_vars': service_data['env_vars'],
 							 'instances': service_data['containers'],
+							 'public_access': service_data['public_access'],
 							 'ports': service_data['ports'],
 							 'tags': service_data['tags']
 							 }
