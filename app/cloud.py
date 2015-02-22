@@ -3,7 +3,6 @@ import re
 thismodule = sys.modules[__name__]
 from requests import HTTPError
 import copy
-import re
 
 import json
 import requests
@@ -46,10 +45,11 @@ def func(self):
 					for link_key, link_value in link.iteritems():
 						if link_key == "to_service":
 							status, text = self._call(link_value, "GET", get_cached=True)
-							
+							debug(rid, "unique_name")
+							debug(rid, json.dumps(text))
 							new_linked.append({
 								'name': link['name'],
-								'to_service': json.loads(text)['unique_name']
+								'to_service': json.loads(text)['name']
 							})
 							link_names.append(json.loads(text)['name'])
 				app['linked'] = new_linked

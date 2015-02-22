@@ -275,6 +275,47 @@ myApp.controller('ConfigurationCtrl',  function($scope, $filter) {
 });
 
 
+myApp.controller("CommandCtrl", ["$scope", function($scope) {
+    $scope.cli_command = function(service) {
+        service._cli_command = "tutum service run ";
+
+        // variables
+        angular.forEach(service.data.custom_env_vars, function(variable) {
+            service._cli_command = service._cli_command + " -e "+variable['key']+"="+variable['value'];
+        });
+        // ports
+        angular.forEach(service.data.ports, function(port) {
+            service._cli_command = service._cli_command + " -p ";
+            if (port.outer_port) {
+            service._cli_command = service._cli_command + port['outer_port']+":";
+
+            }
+            service._cli_command = service._cli_command + port['inner_port'];
+        });
+        // tags
+        angular.forEach(service.data.tags, function(tag) {
+            service._cli_command = service._cli_command + " --tag "+tag['name'];
+        });
+
+
+        // links
+        if (!angular.isUndefined(service.data.linked)) {
+            //console.log(service.data.linked);
+            angular.forEach(service.data.linked, function(link) {
+                //console.log(link);
+                service._cli_command = service._cli_command + " --link "+link['to_service']+":"+link['name'];
+            });
+
+        }
+
+        // image
+        service._cli_command = service._cli_command + " --name "+service.data.name+" "+service.data.image;
+        console.log(service._cli_command);
+
+        return service._cli_command;
+    };
+}]);
+
 myApp.controller("HookCtrl", ["$scope", "hookService", "$rootScope", "$timeout", "$location", function($scope, hookService, $rootScope, $timeout, $location) {
     $scope.stop_hook_running = function(service) {
         return (!typeof service._hook_stop_running === "undefined" || service._hook_stop_running);
