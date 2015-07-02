@@ -17,27 +17,29 @@ def func(self):
 		end = int(round(time.time() * 1000))
 		self.info(self.rid, "firebase_get_data_external: %s (%s)" % (str(end-start), str(step)))
 	logms(1)
-	
+
 	authentication = firebase.FirebaseAuthentication(self.settings.FIREBASE_SECRET, 'philip@sahli.net', extra={'id': 'philipsahli'})
 	app = firebase.FirebaseApplication(self.settings.FIREBASE, authentication)
-	
+	self.info(self.rid, str(app.__dict__))
+	self.info(self.rid, str(app.authentication.__dict__))
+
 	firebase_uid = self.GET.get('user_id')
-	
+
 	debug = self.debug
 	info = self.info
 	error = self.error
 	rid = self.rid
 
 	lcache = {}
-	
+
 	class TutumService(object):
-		
+
 		def __init__(self, api_user, api_key):
 			self.api_user = api_user
 			self.api_key = api_key
-		
+
 		def _custom_link_data(self, data):
-			
+
 			for app in data:
 				new_linked = []
 				link_names = []
@@ -45,8 +47,8 @@ def func(self):
 					for link_key, link_value in link.iteritems():
 						if link_key == "to_service":
 							status, text = self._call(link_value, "GET", get_cached=True)
-							debug(rid, "unique_name")
-							debug(rid, json.dumps(text))
+							#debug(rid, "unique_name")
+							#debug(rid, json.dumps(text))
 							new_linked.append({
 								'name': link['name'],
 								'to_service': json.loads(text)['name']
@@ -55,20 +57,20 @@ def func(self):
 				app['linked'] = new_linked
 				app['link_names'] = link_names
 			return data
-		
+
 		def _custom_variables(self, data):
 			data_cleaned = []
 			try:
 				for variable in data:
 					name = re.search("(.*?)_[0-9]+(.*)", variable['key'])
-						
-					if name is None: 
+
+					if name is None:
 						data_cleaned.append(variable)
 			except Exception, e:
 				raise e
 			return data, data_cleaned
 
-		
+
 		def get_data(self, name=None):
 
 			ids = []
@@ -87,21 +89,22 @@ def func(self):
 					all_env_vars, custom_env_vars = self._custom_variables(details.container_envvars)
 					tags = []
 					for tag in details.tags:
-								tag.pop("resource_uri")
-								tags.append(tag)
+						#debug(rid, tag)
+						#tag.pop("resource_uri")
+						tags.append(tag)
 
-					app_dict = {'name': app.name, 
+					app_dict = {'name': app.name,
 								'id': app.uuid,
 								'uri': app.resource_uri,
 								#'all_env_vars': all_env_vars,
 								'custom_env_vars': custom_env_vars,
 								'state': app.state,
 								'tags': tags,
-								
+
 								# links
 								'linked': details.linked_to_service,
 								'link_variables': details.link_variables,
-								
+
 								# debug
 								'details': details,
 								#'full': app,
@@ -109,7 +112,7 @@ def func(self):
 
 					# workout to get vars without linked_vars from environment variables
 					status, text = self._call("/api/v1/service/"+app.uuid+"/", "GET", get_cached=True)
-					
+
 					conts = []
 					ports = []
 					status_code, containers = self._call("/api/v1/service/"+app.uuid+"/", "GET", get_cached=True)
@@ -136,7 +139,7 @@ def func(self):
 						# running port configuration
 						conts.append(container_data_json)
 
-						# generate persistent configuration 
+						# generate persistent configuration
 						public_ports = {}
 						for port in container_data_json['container_ports']:
 							portc = {
@@ -151,7 +154,7 @@ def func(self):
 							ports.append(portc)
 							# CENTOS_1_TCP_PUBLIC_ADDR = aaa
 							# CENTOS_1_TCP_PUBLIC_PORT = 80
-							debug(rid, port)
+							#debug(rid, port)
 							if port['endpoint_uri']:
 								name = app.name.replace("-", "_").upper()
 								addr_k = "%s_%s_PORT_%s_%s_PUBLIC_ADDR" % (name, container_count, port['inner_port'], port['protocol'].upper())
@@ -166,7 +169,7 @@ def func(self):
 								public_ports.update(public_port)
 								debug(rid, "public_port")
 								debug(rid, public_port)
-				
+
 						container_count = container_count+1
 
 					app_dict.update({'containers': conts})
@@ -176,15 +179,15 @@ def func(self):
 					ids.append(app_dict)
 				# change linked.to_service to app name
 				ids = self._custom_link_data(ids)
-			
+
 			return ids
-		
+
 		def _call(self, uri, method, data=None, get_cached=False):
 			if method == "GET" and get_cached:
 				cached = lcache.get(uri, None)
 				if cached is not None:
 					return cached[0], cached[1]
-			
+
 			start = int(round(time.time() * 1000))
 			base_url = "https://dashboard.tutum.co/"
 
@@ -192,16 +195,16 @@ def func(self):
 				'Authorization': "ApiKey %s:%s" % (self.api_user, self.api_key)
 			}
 			if data:
-				headers.update({'Content-Type': 'application/json'}) 
+				headers.update({'Content-Type': 'application/json'})
 			headers.update({'Accept': 'application/json'})
 			if method == "POST":
 				data=json.dumps(data)
-				r = requests.post(base_url+uri, headers=headers, data=data)	
+				r = requests.post(base_url+uri, headers=headers, data=data)
 			elif method == "GET":
 				r = requests.get(base_url+uri, headers=headers)
 			elif method == "DELETE":
 				r = requests.delete(base_url+uri, headers=headers)
-				
+
 			end = int(round(time.time() * 1000))
 			#debug(rid, (str(end-start), "_call", uri, method, r.status_code, r.text))
 			#info(rid, (str(end-start), "_call", uri, method, r.status_code))
@@ -209,21 +212,21 @@ def func(self):
 				if not cached:
 					lcache.update({uri: [r.status_code, r.text]})
 			return r.status_code, r.text
-		
+
 		def _change_state(self, service, uuid, operation, state):
-			# initiate state change	
+			# initiate state change
 			if operation == "delete":
 				r = self._call("/api/v1/service/%s/" % uuid, "DELETE")
 			else:
 				r = self._call("/api/v1/service/%s/%s/" % (uuid, operation), "POST")
 			if r[0] not in [200, 201, 202]:
 				raise Exception(r)
-		
+
 			# inner function for getting if target state arrived
 			def check_state():
 				code, text = self._call(service.uri, "GET")
 				return (json.loads(text)['state'] == state)
-			
+
 			while True:
 				running = check_state()
 				if not running:
@@ -231,14 +234,14 @@ def func(self):
 					next
 				else:
 					break
-			
+
 			return r
-		
+
 		def start(self, service):
 			if service.state == "Stopped":
 				result = self._change_state(service, service.id, "start", "Running")
 			else:
-				
+
 				data = {
 					"image": service.image,
 					"name": service.name,
@@ -253,7 +256,7 @@ def func(self):
 				info(rid, data)
 				status, response = self._call("/api/v1/service/", "POST",
 											  data)
-				
+
 				if status != 201:
 					e = Exception(status, response)
 					raise e
@@ -265,9 +268,9 @@ def func(self):
 
 				uuid = json.loads(response)['uuid']
 				result = self._change_state(service, uuid, "start", "Running")
-				
-			return result, service 
-	
+
+			return result, service
+
 		def stop(self, service):
 			result = self._change_state(service, service.id, "stop", "Stopped")
 			if result[0] not in [202]:
@@ -280,31 +283,31 @@ def func(self):
 				service.clear_state()
 			return result, service
 
-	
+
 	class Firebase(object):
-		
+
 		service_url = "/users/%s/services/%s"
 		services_url = "/users/%s/services/"
 		services_url_new = "/users/%s/services/%s/"
 
 		config_url = "/users/%s/config/"
-		
+
 		def __init__(self, user, settings):
 			self.user = user
 			self.settings = settings
-			
+
 			self._auth()
-			
+
 		def _auth(self):
 			self.app = firebase.FirebaseApplication(self.settings.FIREBASE, authentication)
-		
+
 		def get_service(self, name):
 			service_dict = self.app.get(self.service_url % (self.user, name), None)
 
 			if not service_dict:
 				raise Exception("service not found on firebase")
 			return Service(**service_dict)
-		
+
 		def get_services(self):
 			service_dict = self.app.get(self.services_url % self.user, None)
 
@@ -313,20 +316,26 @@ def func(self):
 				info(rid, "services not found on firebase")
 				service_dict = []
 			return service_dict
-		
+
 		def save_service(self, service):
 			data = self.app.put(self.services_url_new % (self.user, service.name), "data", service.data)
 			return data
 
 		def get_config(self):
-			return self.app.get(self.config_url % self.user, None)
-			
-	
+			try:
+			    result = self.app.get(self.config_url % self.user, None)
+			except Exception, e:
+				debug(rid, str(e.__dict__))
+				debug(rid, str(e.response.__dict__))
+				error(rid, e)
+			return result
+
+
 	def get_tutum_service():
 		return TutumService(api_user, api_key)
-	
+
 	class Service(object):
-		
+
 		def __init__(self, **kwargs):
 			self.name = kwargs['data']['name']
 			self.state = kwargs['data']['state']
@@ -339,21 +348,21 @@ def func(self):
 			self.linked = kwargs['data'].get('linked', [])
 			self.container_ports = kwargs['data'].get('ports', [])
 			self.tags = kwargs['data'].get('tags', [])
-			
+
 			# full
 			#self.full = kwargs['data'].get('full', None)
 			self.details = kwargs['data'].get('details', None)
-			
+
 			self.terminate = kwargs['terminate']
 			role_config = kwargs.get('role_config', False)
 			if role_config:
 				self.roles = ["global"]
 			else:
 				self.roles = []
-			
+
 			self.tutum_service = get_tutum_service()
 
-		@property	
+		@property
 		def data(self):
 			return {
 				'name': self.name,
@@ -369,7 +378,7 @@ def func(self):
 				'ports': self.container_ports,
 				'tags': self.tags,
 			}
-		
+
 		def get_linked(self):
 			linked = []
 			for link in self.linked:
@@ -378,51 +387,51 @@ def func(self):
 					'to_service': json.loads(self.tutum_service._call("/api/v1/application/?name="+link['to_application']))['unique_name']
 				})
 			return linked
-		
+
 		def start(self):
 			r = self.tutum_service.start(self)
 			return r
-			
+
 		def stop(self):
 			return self.tutum_service.stop(self)
-		
+
 		def clear_state(self, state="Terminated"):
 			if state=="Terminated":
 				self.id = None
 			self.state = state
-		
+
 		def terminate(self):
 			pass
-		
+
 		def save(self, to):
 			to.save_service(self)
-		
+
 		def __str__(self):
 			return self.__dict__
-			
+
 	# execute an action
 	firebase = Firebase(firebase_uid, self.settings)
 	# get user_config
 	user_config = Bunch(firebase.get_config())
 	api_user = user_config.tutum['api']['user']
 	api_key = user_config.tutum['api']['key']
-	
+
 	logms(4)
 	if self.POST.has_key('action'):
 		service = firebase.get_service(self.POST['service_name'])
 		action = self.POST['action']
-		
+
 		if action == "start":
 			result, service_new = service.start()
 			if result[0] not in [200, 201, 202]:
 				raise Exception(result)
-			
+
 			service_new.state = "Running"
 			service_new.id = service_new.id
 			firebase.save_service(service_new)
-			
+
 			result = service_new.id
-			
+
 		elif action == "stop":
 			result, service = service.stop()
 			service.id = None
@@ -430,7 +439,7 @@ def func(self):
 			firebase.save_service(service)
 		else:
 			result = False
-	
+
 	# sync
 	else:
 
@@ -445,12 +454,12 @@ def func(self):
 
 		# Clear state for services which aren't on Tutum anymore.
 		for service in services:
-			
+
 			if service not in tutum_names:
 				service_obj = firebase.get_service(service)
 				service_obj.clear_state()
 				firebase.save_service(service_obj)
-				
+
 		# persist data from tutum to firebase
 		if tutum_data is not None:
 			for service_data in tutum_data:
@@ -486,7 +495,7 @@ def func(self):
 						raise e
 					logms("saved "+service_data['name'])
 		result = tutum_names
-		
+
 	lcache = {}
 
 	info(rid, "done")
