@@ -75,7 +75,7 @@ def func(self):
 
 			ids = []
 
-			status_code, apps = self._call("/api/v1/service/", "GET")
+			status_code, apps = self._call("/api/v1/service/?limit=100", "GET")
 			apps = Bunch(json.loads(apps))
 			if apps:
 				for app in apps.objects:
