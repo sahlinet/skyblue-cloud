@@ -20,14 +20,15 @@
   <script type='text/javascript' src='https://cdn.firebase.com/js/simple-login/1.6.0/firebase-simple-login.js'></script>
 
   <!-- sentry -->
+  {% if SENTRY_URL_JS %}
   <script src="//d3nslu0hdya83q.cloudfront.net/dist/1.0/raven.min.js"></script>
   <script>
   Raven.config('{{SENTRY_URL_JS}}', {
       whitelistUrls: ["{{SENTRY_WHITELIST_JS}}"]
   }).install();
+  {% endif %}
 
-
-  // record a simple message
+  {% comment %}
   Raven.captureMessage('hello world!')
 
   // capture an exception
@@ -36,6 +37,7 @@
   } catch(err) {
       Raven.captureException(err);
   }
+  {% endcomment %}
 
   </script>
 
@@ -87,7 +89,7 @@
                 <li><a ng-class="{true:'current', false:''}[current('start')]" class="nav-link current" href="#/start">Start</a></li>
                 <li><a ng-class="{true:'current', false:''}[current('docs')]" class="nav-link" href="#/docs">Docs</a></li>
                 <li><a ng-class="{true:'current', false:''}[current('cloud')]" ng-show="user" class="nav-link" href="#/cloud">Cloud</a></li>
-                
+
                 <li ng-show="user"><a ng-class="{true:'current', false:''}[current('profile')]" class="nav-link" href="#/profile">Profile</a></li>
                 <li ng-show="user"><button type="button" ng-class="{true: 'disabled', false:''}[running()]" class="btn btn-warning navbar-btn btn-margin-right btn-more-margin-left" ng-click="sync()"><img ng-show="running()" src="img/ajax-loader.gif"/>&nbsp;Sync</button></li>
                 <!--<li ng-show="user"><button class="btn btn-warning navbar-btn btn-margin-right btn-more-margin-left" ng-click="go('/profile')">&nbsp;Profile</button></li>-->
@@ -128,7 +130,7 @@
                 <dt>Providers</dt>
                 <dd>At the moment <a href="https://www.tutum.co/" target="_blank">Tutum</a> is the only implemented Docker Platform.</dd>
                 <dt>Web Hooks</dt>
-                <dd>On container stop and start a webhook with information about the container is called. The hooks are under your control and 
+                <dd>On container stop and start a webhook with information about the container is called. The hooks are under your control and
                   can for example dump/restore a database, delete/update a record in a dns zone or pausing/activating monitoring.</dd>
                 <dt>Customization</dt>
                 <dd>skyblue/cloud is <a href="http://en.wikipedia.org/wiki/MIT_License">MIT licensed</a> and is waiting for contributors. Because the application is designated to run on <a href="http://bit.ly/1K6ZTcZ" target="_blank">skyblue/planet</a>, there is a very low deployment footprint.</dd>
@@ -187,7 +189,7 @@
               </ul>
             </div>
           </div>
-        </div> 
+        </div>
         <hr ng-show="showMainContent()" class="dashed" />
         <div class="copyright clearfix">
           <p><b>skyblue/cloud</b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#/start">Start</a>&nbsp;&bull;&nbsp;<a href="#/docs">Docs</a></p>
