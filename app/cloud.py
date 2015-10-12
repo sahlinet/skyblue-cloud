@@ -20,8 +20,8 @@ def func(self):
 
 	authentication = firebase.FirebaseAuthentication(self.settings.FIREBASE_SECRET, 'philip@sahli.net', extra={'id': 'philipsahli'})
 	app = firebase.FirebaseApplication(self.settings.FIREBASE, authentication)
-	self.info(self.rid, str(app.__dict__))
-	self.info(self.rid, str(app.authentication.__dict__))
+	#self.info(self.rid, str(app.__dict__))
+	#self.info(self.rid, str(app.authentication.__dict__))
 
 	firebase_uid = self.GET.get('user_id')
 
@@ -75,18 +75,21 @@ def func(self):
 
 			ids = []
 
-			status_code, apps = self._call("/api/v1/service/?limit=100", "GET")
-			apps = Bunch(json.loads(apps))
-			if apps:
-				for app in apps.objects:
+			from threading import Thread
+			class GetDataThread(Thread):
+				def __init__(self, app, tutum_service):
+				    Thread.__init__(self)
+				    self.app = app
+				    self.tutum_service = tutum_service
 
-					app = Bunch(app)
-					if app.state == "Terminated": continue
+				def run(self):
+					app = Bunch(self.app)
+					if app.state == "Terminated": return
 
-					status_code, details_api = self._call("/api/v1/service/"+app.uuid+"/", "GET")
+					status_code, details_api = self.tutum_service._call("/api/v1/service/"+app.uuid+"/", "GET")
 					details = Bunch(json.loads(details_api))
 
-					all_env_vars, custom_env_vars = self._custom_variables(details.container_envvars)
+					all_env_vars, custom_env_vars = self.tutum_service._custom_variables(details.container_envvars)
 					tags = []
 					for tag in details.tags:
 						#debug(rid, tag)
@@ -111,17 +114,17 @@ def func(self):
 								}
 
 					# workout to get vars without linked_vars from environment variables
-					status, text = self._call("/api/v1/service/"+app.uuid+"/", "GET", get_cached=True)
+					status, text = self.tutum_service._call("/api/v1/service/"+app.uuid+"/", "GET", get_cached=True)
 
 					conts = []
 					ports = []
-					status_code, containers = self._call("/api/v1/service/"+app.uuid+"/", "GET", get_cached=True)
+					status_code, containers = self.tutum_service._call("/api/v1/service/"+app.uuid+"/", "GET", get_cached=True)
 					containers = json.loads(containers)
 					app_dict['env_vars'] = json.loads(text)['container_envvars']
 
 					container_count = 1
 					for container in details.containers:
-						status_code, container_data = self._call(container, "GET")
+						status_code, container_data = self.tutum_service._call(container, "GET")
 
 						container_data_json = json.loads(container_data)
 
@@ -167,8 +170,8 @@ def func(self):
 									port_k: port_v
 										}
 								public_ports.update(public_port)
-								debug(rid, "public_port")
-								debug(rid, public_port)
+								#debug(rid, "public_port")
+								#debug(rid, public_port)
 
 						container_count = container_count+1
 
@@ -176,7 +179,25 @@ def func(self):
 					app_dict.update({'ports': ports})
 					app_dict.update({'public_access': public_ports})
 					app_dict.update({'image': containers['image_name']})
+					self.app_dict = app_dict
 					ids.append(app_dict)
+
+			status_code, apps = self._call("/api/v1/service/?limit=100", "GET")
+			apps = Bunch(json.loads(apps))
+			if apps:
+				threads = []
+				for app in apps.objects:
+					thread = GetDataThread(app, self)
+					threads.append(thread)
+					info(rid, "%s Thread started" % len(threads))
+					thread.start()
+
+				for x in threads:
+					print thread
+					thread.join()
+
+				info(rid, "%s Threads ended" % len(threads))
+
 				# change linked.to_service to app name
 				ids = self._custom_link_data(ids)
 
@@ -252,8 +273,8 @@ def func(self):
 					"container_ports": service.container_ports,
 					"tags": service.tags
 				}
-				info(rid, "START DATA")
-				info(rid, data)
+				#info(rid, "START DATA")
+				#info(rid, data)
 				status, response = self._call("/api/v1/service/", "POST",
 											  data)
 
@@ -390,6 +411,7 @@ def func(self):
 
 		def start(self):
 			r = self.tutum_service.start(self)
+			# TODO: Should sync only the started service
 			return r
 
 		def stop(self):
@@ -454,7 +476,6 @@ def func(self):
 
 		# Clear state for services which aren't on Tutum anymore.
 		for service in services:
-
 			if service not in tutum_names:
 				service_obj = firebase.get_service(service)
 				service_obj.clear_state()
