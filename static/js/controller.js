@@ -133,6 +133,17 @@ myApp.controller("cloudCtrl", ["$scope", "$firebase", "$rootScope",
                     type: 'success',
                     msg: 'Sync done'
                 });
+
+
+                var profileRef = new Firebase(window.firebase_url +
+                    "/users/" +
+                    $rootScope.user.uid + "/config"
+                );
+                $scope.config = $firebase(profileRef);
+                $scope.config.last_sync = Firebase.ServerValue
+                    .TIMESTAMP;
+                $scope.config.$save("last_sync");
+
             }, function(reason) {
                 $scope.alerts.push({
                     type: 'warning',

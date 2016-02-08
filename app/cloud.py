@@ -1,12 +1,13 @@
 import sys
 import re
-thismodule = sys.modules[__name__]
 from requests import HTTPError
 import copy
+import base64
 
 import json
 import requests
 from bunch import Bunch
+
 
 def func(self):
 	import time
@@ -37,6 +38,8 @@ def func(self):
 		def __init__(self, api_user, api_key):
 			self.api_user = api_user
 			self.api_key = api_key
+
+			info(rid, "self.api_user: "+ self.api_user)
 
 		def _custom_link_data(self, data):
 
@@ -183,6 +186,7 @@ def func(self):
 					ids.append(app_dict)
 
 			status_code, apps = self._call("/api/v1/service/?limit=100", "GET")
+			info(rid, status_code)
 			apps = Bunch(json.loads(apps))
 			if apps:
 				threads = []
@@ -212,8 +216,10 @@ def func(self):
 			start = int(round(time.time() * 1000))
 			base_url = "https://dashboard.tutum.co/"
 
+			encoded_credentials = base64.b64encode("%s:%s" % (self.api_user, self.api_key))
+
 			headers = {
-				'Authorization': "ApiKey %s:%s" % (self.api_user, self.api_key)
+				'Authorization': "Basic %s" % encoded_credentials
 			}
 			if data:
 				headers.update({'Content-Type': 'application/json'})
