@@ -36,15 +36,6 @@ myApp.factory('hookService', ['$rootScope', '$http', '$q', '$timeout', '$locatio
                     }
                 }
                 run = function(url, request_data) {
-                    //console.log(request_data);
-
-                    /*if (angular.isUndefined(data)) {
-                        data = data;
-                    } else {
-                        data = $.param(data);
-
-                    }*/
-
                     $http.post(url, $.param(request_data)).success(function(data, status, headers, config) {
                         if (data.status != "RUNNING") {
                             deferred.resolve(status);
